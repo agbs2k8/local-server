@@ -1,0 +1,17 @@
+apiVersion: v2
+name: pihole
+description: A Helm chart for Pi-hole DNS Load Balancing setup
+type: application
+version: 1.0.0
+appVersion: "latest"
+home: https://pi-hole.net/
+sources:
+  - https://github.com/pi-hole/docker-pi-hole
+keywords:
+  - dns
+  - adblock
+  - pihole
+  - networking
+maintainers:
+  - name: Pi-hole Community
+    url: https://pi-hole.net/

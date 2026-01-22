@@ -1,0 +1,79 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pihole.fullname" . }}-dns
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
+    app.kubernetes.io/component: dns
+  {{- with .Values.service.dns.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.dns.type }}
+  ports:
+  - name: dns-tcp
+    port: {{ .Values.service.dns.port }}
+    targetPort: dns-tcp
+    protocol: TCP
+  - name: dns-udp
+    port: {{ .Values.service.dns.port }}
+    targetPort: dns-udp
+    protocol: UDP
+  selector:
+    {{- include "pihole.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pihole.fullname" . }}-web
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
+    app.kubernetes.io/component: web
+  {{- with .Values.service.web.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  type: {{ .Values.service.web.type }}
+  {{- if eq .Values.service.web.type "LoadBalancer" }}
+  {{- with .Values.service.web.loadBalancerIP }}
+  loadBalancerIP: {{ . }}
+  {{- end }}
+  {{- end }}
+  ports:
+  - name: http
+    port: {{ .Values.service.web.httpPort }}
+    targetPort: http
+    protocol: TCP
+  - name: https
+    port: {{ .Values.service.web.httpsPort }}
+    targetPort: https
+    protocol: TCP
+  selector:
+    {{- include "pihole.selectorLabels" . | nindent 4 }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "pihole.fullname" . }}-headless
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "pihole.labels" . | nindent 4 }}
+    app.kubernetes.io/component: headless
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+  - name: dns-tcp
+    port: 53
+    targetPort: dns-tcp
+    protocol: TCP
+  - name: dns-udp
+    port: 53
+    targetPort: dns-udp
+    protocol: UDP
+  selector:
+    {{- include "pihole.selectorLabels" . | nindent 4 }}

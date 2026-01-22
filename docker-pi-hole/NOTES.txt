@@ -1,0 +1,58 @@
+1. Get the application URL by running these commands:
+{{- if .Values.ingress.enabled }}
+{{- range $host := .Values.ingress.hosts }}
+  {{- range .paths }}
+  http{{ if $.Values.ingress.tls }}s{{ end }}://{{ $host.host }}{{ .path }}
+  {{- end }}
+{{- end }}
+{{- else if contains "NodePort" .Values.service.web.type }}
+  export NODE_PORT=$(kubectl get --namespace {{ .Release.Namespace }} -o jsonpath="{.spec.ports[0].nodePort}" services {{ include "pihole.fullname" . }}-web)
+  export NODE_IP=$(kubectl get nodes --namespace {{ .Release.Namespace }} -o jsonpath="{.items[0].status.addresses[0].address}")
+  echo http://$NODE_IP:$NODE_PORT
+{{- else if contains "LoadBalancer" .Values.service.web.type }}
+     NOTE: It may take a few minutes for the LoadBalancer IP to be available.
+           You can watch the status of by running 'kubectl get --namespace {{ .Release.Namespace }} svc -w {{ include "pihole.fullname" . }}-web'
+  export SERVICE_IP=$(kubectl get svc --namespace {{ .Release.Namespace }} {{ include "pihole.fullname" . }}-web --template "{{"{{ range (index .status.loadBalancer.ingress 0) }}{{.}}{{ end }}"}}")
+  echo http://$SERVICE_IP:{{ .Values.service.web.httpPort }}
+{{- else if contains "ClusterIP" .Values.service.web.type }}
+  export POD_NAME=$(kubectl get pods --namespace {{ .Release.Namespace }} -l "{{ include "pihole.selectorLabels" . | replace ": " "=" | replace "\n" "," }}" -o jsonpath="{.items[0].metadata.name}")
+  export CONTAINER_PORT=$(kubectl get pod --namespace {{ .Release.Namespace }} $POD_NAME -o jsonpath="{.spec.containers[0].ports[0].containerPort}")
+  echo "Visit http://127.0.0.1:8080 to use your application"
+  kubectl --namespace {{ .Release.Namespace }} port-forward $POD_NAME 8080:$CONTAINER_PORT
+{{- end }}
+
+2. DNS Service Information:
+   The Pi-hole DNS service is available at: {{ include "pihole.fullname" . }}-dns.{{ .Release.Namespace }}.svc.cluster.local:53
+
+3. Configure CoreDNS to use Pi-hole as upstream:
+   kubectl edit configmap coredns -n kube-system
+   
+   Add this to the Corefile:
+   .:53 {
+       errors
+       health {
+          lameduck 5s
+       }
+       ready
+       kubernetes cluster.local in-addr.arpa ip6.arpa {
+          pods insecure
+          fallthrough in-addr.arpa ip6.arpa
+          ttl 30
+       }
+       prometheus :9153
+       forward . {{ include "pihole.fullname" . }}-dns.{{ .Release.Namespace }}.svc.cluster.local
+       cache 30
+       loop
+       reload
+       loadbalance
+   }
+
+4. Check the Pi-hole admin password:
+{{- if eq .Values.env.FTLCONF_webserver_api_password "" }}
+   kubectl logs --namespace {{ .Release.Namespace }} -l "{{ include "pihole.selectorLabels" . | replace ": " "=" | replace "\n" "," }}" | grep "random password"
+{{- else }}
+   Your admin password is: {{ .Values.env.FTLCONF_webserver_api_password }}
+{{- end }}
+
+5. Monitor your Pi-hole instances:
+   kubectl get pods --namespace {{ .Release.Namespace }} -l "{{ include "pihole.selectorLabels" . | replace ": " "=" | replace "\n" "," }}"
