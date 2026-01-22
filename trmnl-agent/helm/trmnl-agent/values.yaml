@@ -1,0 +1,74 @@
+# Default values for trmnl-agent
+# This is a YAML-formatted file.
+
+# Image configuration
+image:
+  repository: trmnl-agent
+  pullPolicy: IfNotPresent
+  tag: "latest"
+
+# CronJob configuration
+cronjob:
+  # Daily at 4:00 AM CST (10:00 AM UTC)
+  schedule: "0 10 * * *"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 1
+  restartPolicy: OnFailure
+  backoffLimit: 2
+  activeDeadlineSeconds: 600  # 10 minutes timeout
+
+# Application configuration
+config:
+  appName: "trmnl-agent"
+  logLevel: "INFO"
+  sourceUrl: "https://www.accuweather.com/en/us/lakeville/55044/sinus-weather/2247734"
+  enableHealthCheck: false
+  healthCheckPort: 8080
+
+# Secret configuration (for sensitive data)
+secrets:
+  # This will be set from your .env file
+  webhookUrl: ""
+
+# Resource limits
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Security context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+  readOnlyRootFilesystem: true
+
+# Node selector and tolerations
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Service account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+# Pod annotations and labels
+podAnnotations: {}
+podLabels: {}
+
+# Environment variables from .env file
+env:
+  # These will be populated from your .env file
+  # APP_NAME: "trmnl-agent"
+  # LOG_LEVEL: "INFO"
+  # SOURCE_URL: "https://www.accuweather.com/en/us/lakeville/55044/sinus-weather/2247734"
+  # WEBHOOK_URL: "https://your-webhook-endpoint.com"
+  # ENABLE_HEALTH_CHECK: "false"
+  # HEALTH_CHECK_PORT: "8080"

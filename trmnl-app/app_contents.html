@@ -1,0 +1,218 @@
+<!-- import Highcharts library -->
+<script src="https://usetrmnl.com/js/highcharts/12.3.0/highcharts.js"></script>
+<script src="https://usetrmnl.com/js/highcharts/12.3.0/pattern-fill.js"></script>
+
+<div class="view w--full">
+  <div class="title_bar">
+    <img class="image" src="/images/plugins/trmnl--render.svg">
+    <span class="title">MN Sinus Forecast for {{1."day"}}</span>
+  </div>
+  <div class="layout layout--col gap--space-between">
+
+    <!-- Chart container - fully responsive -->
+    <div id="example-bar-chart" class="w--full"></div>
+
+    <script type="text/javascript">
+      console.log("Starting chart initialization...");
+
+      var rawData = [
+        "{{0.'day'}}", {{0.'y'}}, "{{0.'color'}}",
+        "{{1.'day'}}", {{1.'y'}}, "{{1.'color'}}",
+        "{{2.'day'}}", {{2.'y'}}, "{{2.'color'}}",
+        "{{3.'day'}}", {{3.'y'}}, "{{3.'color'}}",
+        "{{4.'day'}}", {{4.'y'}}, "{{4.'color'}}",
+        "{{5.'day'}}", {{5.'y'}}, "{{5.'color'}}",
+        "{{6.'day'}}", {{6.'y'}}, "{{6.'color'}}"
+      ];
+
+      // Restructure into nested arrays
+      var forecastData = [];
+      for (var i = 0; i < rawData.length; i += 3) {
+        if (i + 2 < rawData.length) {
+          forecastData.push([rawData[i], rawData[i + 1], rawData[i + 2]]);
+        }
+      }
+
+      console.log("Forecast data points:", forecastData.length);
+
+      // Transform data with individual colors from raw data
+      var chartData = forecastData.map(function(item, index) {
+        var yValue = parseFloat(item[1]);
+        if (isNaN(yValue)) {
+          yValue = 1;
+        }
+
+        // Keep first 3 characters for day names (Mon, Tue, Wed, etc.)
+        var dayName = item[0];
+        if (dayName && dayName.length > 3) {
+          dayName = dayName.substring(0, 3); // Show first 3 characters
+        }
+
+        // Use the color from the raw data
+        var barColor = item[2] || "#808080"; // Fallback to gray if no color
+
+        var result = {
+          name: dayName || "Day" + (index + 1),
+          y: yValue,
+          color: barColor // Use individual color from data
+        };
+
+        console.log("Data point " + index + ":", JSON.stringify(result));
+        return result;
+      });
+
+      console.log("Chart data points:", chartData.length);
+
+      // Initialize fully responsive chart with forced display of all bars
+      try {
+        var chart = Highcharts.chart("example-bar-chart", {
+          chart: {
+            type: "column",
+            animation: false
+          },
+          accessibility: {
+            enabled: false
+          },
+          title: {
+            text: null
+          },
+          plotOptions: {
+            series: {
+              animation: false,
+              enableMouseTracking: false,
+              states: {
+                hover: { enabled: false }
+              },
+              // Force all bars to be visible by setting constraints
+              pointPadding: 0.1,
+              groupPadding: 0.1,
+              borderWidth: 0,
+              colorByPoint: true,
+              // Set maximum point width to ensure all bars fit
+              //maxPointWidth: 50
+            }
+          },
+          series: [{
+            name: "Forecast",
+            data: chartData,
+            showInLegend: false
+          }],
+          tooltip: { enabled: false },
+          legend: { enabled: false },
+          yAxis: {
+            min: 0,
+            max: 5,
+            tickPositions: [0, 1, 2, 3, 4, 5],
+            labels: {
+              style: { fontSize: "14px", color: "#000000" },
+              formatter: function() {
+                var labels = ["None", "Low", "Moderate", "High", "Very High", "Extreme"];
+                return labels[this.value] || this.value;
+              }
+            },
+            gridLineDashStyle: "shortdot",
+            gridLineWidth: 1,
+            gridLineColor: "#000000",
+            title: {
+              text: null
+            }
+          },
+          xAxis: {
+            type: "category",
+            labels: {
+              style: { color: "#000000" },
+              // Ensure all labels are shown
+              step: 1,
+              // Force all labels to be visible
+              allowOverlap: true
+            },
+            lineWidth: 0,
+            gridLineDashStyle: "dot",
+            tickWidth: 0,
+            tickLength: 0,
+            gridLineWidth: 1,
+            gridLineColor: "#000000",
+            title: {
+              text: null
+            },
+            // Force showing all categories
+            categories: null,
+            // Prevent category dropping on narrow screens
+            min: 0,
+            //max: chartData.length - 1
+          },
+          credits: {
+            enabled: false
+          },
+          // Enhanced responsive rules for half-width handling
+          responsive: {
+            rules: [{
+              condition: {
+                maxWidth: 250 // Very narrow (quarter width)
+              },
+              chartOptions: {
+                plotOptions: {
+                  series: {
+                    pointPadding: 0,
+                    groupPadding: 0,
+                    maxPointWidth: 20 // Very narrow bars
+                  }
+                },
+                xAxis: {
+                  labels: {
+                    style: { fontSize: '0.6em' },
+                    rotation: -45 // Rotate labels for space
+                  }
+                }
+              }
+            }, {
+              condition: {
+                minWidth: 250,
+                maxWidth: 400 // Half-width range
+              },
+              chartOptions: {
+                plotOptions: {
+                  series: {
+                    pointPadding: 0.05,
+                    groupPadding: 0.05,
+                    maxPointWidth: 30 // Moderate width bars
+                  }
+                },
+                xAxis: {
+                  labels: {
+                    style: { fontSize: '0.7em' },
+                    rotation: 0 // Keep horizontal if they fit
+                  }
+                }
+              }
+            }, {
+              condition: {
+                minWidth: 400 // Full width
+              },
+              chartOptions: {
+                plotOptions: {
+                  series: {
+                    pointPadding: 0.1,
+                    groupPadding: 0.1,
+                    //maxPointWidth: 50 // Normal width bars
+                  }
+                },
+                xAxis: {
+                  labels: {
+                    style: { fontSize: '1em' },
+                    rotation: 0
+                  }
+                }
+              }
+            }]
+          }
+        });
+        
+        console.log("Chart created with", chartData.length, "data points");
+        
+      } catch (error) {
+        console.error("Error creating chart:", error);
+      }
+    </script>
+  </div>
+</div>

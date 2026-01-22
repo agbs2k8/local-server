@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "trmnl-agent.configMapName" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "trmnl-agent.labels" . | nindent 4 }}
+data:
+  APP_NAME: {{ .Values.config.appName | quote }}
+  LOG_LEVEL: {{ .Values.config.logLevel | quote }}
+  SOURCE_URL: {{ .Values.config.sourceUrl | quote }}
+  ENABLE_HEALTH_CHECK: {{ .Values.config.enableHealthCheck | quote }}
+  HEALTH_CHECK_PORT: {{ .Values.config.healthCheckPort | quote }}
+  {{- range $key, $value := .Values.env }}
+  {{- if not (eq $key "WEBHOOK_URL") }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  {{- end }}

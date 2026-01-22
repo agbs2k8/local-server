@@ -1,0 +1,17 @@
+apiVersion: v2
+name: trmnl-agent
+description: A Helm chart for TRMNL Agent - Daily data extraction and forwarding service
+type: application
+version: 0.1.0
+appVersion: "0.0.1"
+
+keywords:
+  - trmnl
+  - data-extraction
+  - webhook
+  - cronjob
+
+maintainers:
+  - name: TRMNL Agent Team
+
+home: https://github.com/agbs2k8/local-server/tree/main/trmnl-agent

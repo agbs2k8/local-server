@@ -1,0 +1,27 @@
+[build-system]
+requires = ["setuptools", "wheel"]
+
+[project]
+name = "trmnl-agent"
+version = "0.0.1"
+description = "Daily data extraction and forwarding service for TRMNL displays"
+requires-python = ">=3.9"
+dependencies = [
+    "requests>=2.25.0",
+    "beautifulsoup4>=4.9.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.4.3",
+    "pytest-asyncio>=0.21.1",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "black>=23.11.0",
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py", "*_test.py"]
+python_functions = ["test_*"]
+python_classes = ["Test*"]

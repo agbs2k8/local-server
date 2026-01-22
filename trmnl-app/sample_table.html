@@ -1,0 +1,194 @@
+<!-- import Highcharts library -->
+<script src="https://usetrmnl.com/js/highcharts/12.3.0/highcharts.js"></script>
+<script src="https://usetrmnl.com/js/highcharts/12.3.0/pattern-fill.js"></script>
+
+<div class="view view--full">
+  <div class="layout layout--col gap--space-between">
+    <!-- Business metrics displayed above chart -->
+    <div class="grid grid--cols-4">
+      <div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          <div class="w--14 h--1.5 mb--2 bg--black" style="border-radius: 20px;"></div>
+          <span class="value value--tnums">$31,883</span>
+          <span class="label">Revenue</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          <div class="w--14 h--1.5 mb--2 bg--gray-3"></div>
+          <span class="value value--tnums">$22,910</span>
+          <span class="label">Expenses</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          <div class="w--14 h--1.5 mb--2 bg--gray-5"></div>
+          <span class="value value--tnums">$8,990</span>
+          <span class="label">Marketing</span>
+        </div>
+      </div>
+      <div class="item">
+        <div class="meta"></div>
+        <div class="content">
+          <div class="w--14 h--1.5 mb--2 bg--gray-7"></div>
+          <span class="value value--tnums">$14,930</span>
+          <span class="label">Operations</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="border--h-5 w--full"></div>
+
+    <!-- Chart container with unique ID -->
+    <div id="example-bar-chart" class="w--full"></div>
+
+    <script type="text/javascript">
+      // Simplified regional data across four quarters
+      var revenueData = [
+        ["Jan", 5883],
+        ["Feb", 5260],
+        ["Mar", 4760],
+        ["Apr", 5120],
+        ["May", 5540],
+        ["Jun", 6320]
+      ];
+
+      var expensesData = [
+        ["Jan", 3580],
+        ["Feb", 3210],
+        ["Mar", 3620],
+        ["Apr", 3950],
+        ["May", 4120],
+        ["Jun", 4430]
+      ];
+
+      var marketingData = [
+        ["Jan", 1120],
+        ["Feb", 980],
+        ["Mar", 1320],
+        ["Apr", 1650],
+        ["May", 1820],
+        ["Jun", 2100]
+      ];
+
+      var operationsData = [
+        ["Jan", 2240],
+        ["Feb", 2170],
+        ["Mar", 2380],
+        ["Apr", 2520],
+        ["May", 2730],
+        ["Jun", 2890]
+      ];
+
+      var formattedBarData = [
+        { name: "Revenue", data: revenueData },
+        { name: "Expenses", data: expensesData },
+        { name: "Marketing", data: marketingData },
+        { name: "Operations", data: operationsData }
+      ];
+
+      // Initialize chart with bar/column configuration for 4 series
+      Highcharts.chart("example-bar-chart", {
+        chart: {
+          type: "column",
+          height: 284,
+          width: null,
+          animation: false,
+          spacing: [10, 10, 5, 10]
+        },
+        title: {
+          text: null
+        },
+        plotOptions: {
+          series: {
+            animation: false,
+            enableMouseTracking: false,
+            states: {
+              hover: { enabled: false }
+            },
+            pointPadding: 0.05,  // Reduced padding for more bars
+            groupPadding: 0.1,
+            borderWidth: 0
+          }
+        },
+        // Define all four series with different styles
+        series: [{
+          data: formattedBarData[0].data,
+          color: "#000000",
+          name: formattedBarData[0].name,
+          zIndex: 4  // Highest zIndex to keep this in front
+        }, {
+          data: formattedBarData[1].data,
+          name: formattedBarData[1].name,
+          zIndex: 3,
+          color: {
+            pattern: {
+              image: "https://usetrmnl.com/images/grayscale/gray-3.png",
+              width: 12,
+              height: 12
+            }
+          }
+        }, {
+          data: formattedBarData[2].data,
+          name: formattedBarData[2].name,
+          zIndex: 2,
+          color: {
+            pattern: {
+              image: "https://usetrmnl.com/images/grayscale/gray-5.png",
+              width: 12,
+              height: 12
+            }
+          }
+        }, {
+          data: formattedBarData[3].data,
+          name: formattedBarData[3].name,
+          zIndex: 1,
+          color: {
+            pattern: {
+              image: "https://usetrmnl.com/images/grayscale/gray-7.png",
+              width: 12,
+              height: 12
+            }
+          }
+        }],
+        tooltip: { enabled: false },
+        legend: { enabled: false },
+        yAxis: {
+          labels: {
+            style: { fontSize: "16px", color: "#000000" }
+          },
+          gridLineDashStyle: "shortdot",
+          gridLineWidth: 1,
+          gridLineColor: "#000000",
+          tickAmount: 5,
+          title: {
+            text: null
+          }
+        },
+        xAxis: {
+          type: "category",
+          labels: {
+            style: { fontSize: "16px", color: "#000000" },
+            padding: 5,
+            y: 25
+          },
+          lineWidth: 0,
+          gridLineDashStyle: "dot",
+          tickWidth: 0,
+          tickLength: 0,
+          gridLineWidth: 1,
+          gridLineColor: "#000000",
+          title: {
+            text: null
+          }
+        },
+        credits: {
+          enabled: false
+        }
+      });
+    </script>
+  </div>
+</div>
