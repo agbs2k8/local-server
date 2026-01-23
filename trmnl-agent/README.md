@@ -44,12 +44,11 @@ python -m pytest --cov .
 ```bash
 # Build for local k3s
 docker build -t trmnl-agent:latest .
+```
 
-# Import into k3s
-k3s ctr images import trmnl-agent.tar
-
-# Or build directly in k3s
-docker save trmnl-agent:latest | k3s ctr images import -
+### Deploy
+```
+DOCKER_HUB_USERNAME=yourusername ./deploy.sh
 ```
 
 ## Monitoring
@@ -71,10 +70,50 @@ kubectl logs -f job/trmnl-agent-xxxxx
 kubectl get cronjob trmnl-agent
 
 # View job history
-kubectl get jobs -l app.kubernetes.io/name=trmnl-agent
+kubectl get jobs -A
 
 # Describe failed jobs
 kubectl describe job trmnl-agent-failed-job
+
+# List all cronjobs (should show trmnl-agent)
+kubectl get cronjob
+
+# Get detailed info about your specific cronjob
+kubectl get cronjob trmnl-agent -o wide
+
+# Describe the cronjob (shows schedule, last run, etc.)
+kubectl describe cronjob trmnl-agent
+
+# Verify ConfigMap was created
+kubectl get configmap trmnl-agent-config
+
+# Verify Secret was created
+kubectl get secret trmnl-agent-secret
+
+# Check ServiceAccount
+kubectl get serviceaccount trmnl-agent
+
+# View logs from the most recent job
+kubectl logs -l app.kubernetes.io/name=trmnl-agent --tail=50
+
+# View logs from a specific job (replace with actual job name)
+kubectl logs job/trmnl-agent-xxxxx
+
+# Follow logs in real-time (if a job is currently running)
+kubectl logs -f -l app.kubernetes.io/name=trmnl-agent
+
+# Manually trigger a job to test immediately
+kubectl create job --from=cronjob/trmnl-agent trmnl-agent-manual-test
+
+# Check the manual job
+kubectl get job trmnl-agent-manual-test
+kubectl logs job/trmnl-agent-manual-test
+
+# Verify the cron schedule and next run time
+kubectl get cronjob trmnl-agent -o jsonpath='{.spec.schedule}{"\n"}'
+
+# See full cronjob YAML configuration
+kubectl get cronjob trmnl-agent -o yaml
 ```
 
 ## Troubleshooting

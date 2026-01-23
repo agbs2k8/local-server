@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import logging
+import logging.config
 import datetime
 import requests
 from bs4 import BeautifulSoup
@@ -54,7 +55,7 @@ def webhook_upload(target_url, data):
 
 
 def run(cfg):
-    logging.basicConfig(filename=f"{cfg.APP_NAME}.log", level=cfg.LOG_LEVEL)
+    logging.config.dictConfig(cfg.LOG_CONFIG)
     logger = logging.getLogger(__name__)
     logger.info("TRMNL Agent starting up")
     data = build_trmnl_payload(extract_content(get_page(cfg.SOURCE_URL)))
