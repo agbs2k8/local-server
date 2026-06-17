@@ -1,14 +1,13 @@
 import os
 import sys
-import uuid
-import secrets
-import pathlib
 
-APP_NAME = "trmnl-agent"
+
+APP_NAME = os.getenv("APP_NAME", "trmnl-agent")
 APP_VERSION = "0.0.1"
 LOG_LEVEL = os.getenv("LOG_LEVEL", "INFO").upper()
 WEBHOOK_URL = os.getenv("WEBHOOK_URL", "http://localhost:5000/webhook")
 SOURCE_URL = os.getenv("SOURCE_URL", "https://www.accuweather.com/en/us/lakeville/55044/sinus-weather/2247734")
+PULL_RETRY = int(os.getenv("PULL_RETRY", "3"))
 
 LOG_CONFIG = {
     "version": 1,

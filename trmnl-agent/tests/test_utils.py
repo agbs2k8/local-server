@@ -2,8 +2,7 @@ import pytest
 import datetime
 from unittest.mock import patch, Mock
 
-# Import the utils module to test
-import utils
+from app import utils
 
 
 class TestDayOfWeek:

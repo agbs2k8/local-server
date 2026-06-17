@@ -5,11 +5,14 @@ requires = ["setuptools", "wheel"]
 name = "trmnl-agent"
 version = "0.0.1"
 description = "Daily data extraction and forwarding service for TRMNL displays"
-requires-python = ">=3.9"
+requires-python = ">=3.13"
 dependencies = [
     "requests>=2.25.0",
     "beautifulsoup4>=4.9.0",
 ]
+
+[tool.setuptools]
+packages = ["app"]
 
 [project.optional-dependencies]
 dev = [

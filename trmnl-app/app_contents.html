@@ -2,15 +2,13 @@
 <script src="https://usetrmnl.com/js/highcharts/12.3.0/highcharts.js"></script>
 <script src="https://usetrmnl.com/js/highcharts/12.3.0/pattern-fill.js"></script>
 
-<div class="view w--full">
+<div class="view view--full">
   <div class="title_bar">
     <img class="image" src="/images/plugins/trmnl--render.svg">
     <span class="title">MN Sinus Forecast for {{1."day"}}</span>
   </div>
-  <div class="layout layout--col gap--space-between">
-
     <!-- Chart container - fully responsive -->
-    <div id="example-bar-chart" class="w--full"></div>
+    <div id="example-bar-chart" class="md:w--large, lg:h--full"></div>
 
     <script type="text/javascript">
       console.log("Starting chart initialization...");
@@ -68,7 +66,10 @@
         var chart = Highcharts.chart("example-bar-chart", {
           chart: {
             type: "column",
-            animation: false
+            height: 284,
+            width: null,
+            animation: false,
+            spacing: [10, 10, 5, 10]
           },
           accessibility: {
             enabled: false
@@ -83,13 +84,10 @@
               states: {
                 hover: { enabled: false }
               },
-              // Force all bars to be visible by setting constraints
-              pointPadding: 0.1,
+              pointPadding: 0.05,
               groupPadding: 0.1,
               borderWidth: 0,
-              colorByPoint: true,
-              // Set maximum point width to ensure all bars fit
-              //maxPointWidth: 50
+              colorByPoint: true
             }
           },
           series: [{
@@ -104,7 +102,7 @@
             max: 5,
             tickPositions: [0, 1, 2, 3, 4, 5],
             labels: {
-              style: { fontSize: "14px", color: "#000000" },
+              style: { fontSize: "16px", color: "#000000" },
               formatter: function() {
                 var labels = ["None", "Low", "Moderate", "High", "Very High", "Extreme"];
                 return labels[this.value] || this.value;
@@ -120,11 +118,9 @@
           xAxis: {
             type: "category",
             labels: {
-              style: { color: "#000000" },
-              // Ensure all labels are shown
-              step: 1,
-              // Force all labels to be visible
-              allowOverlap: true
+              style: { fontSize: "16px", color: "#000000" },
+              padding: 5,
+              y: 25
             },
             lineWidth: 0,
             gridLineDashStyle: "dot",
@@ -134,73 +130,35 @@
             gridLineColor: "#000000",
             title: {
               text: null
-            },
-            // Force showing all categories
-            categories: null,
-            // Prevent category dropping on narrow screens
-            min: 0,
-            //max: chartData.length - 1
+            }
           },
           credits: {
             enabled: false
           },
-          // Enhanced responsive rules for half-width handling
+          // Simple responsive rules for half-width display
           responsive: {
             rules: [{
               condition: {
-                maxWidth: 250 // Very narrow (quarter width)
+                maxWidth: 400 // Half-width and narrow displays
               },
               chartOptions: {
+                chart: {
+                  spacing: [5, 5, 5, 5] // Reduce spacing for narrow views
+                },
                 plotOptions: {
                   series: {
-                    pointPadding: 0,
-                    groupPadding: 0,
-                    maxPointWidth: 20 // Very narrow bars
+                    pointPadding: 0.02, // Tighter padding for narrow views
+                    groupPadding: 0.05
                   }
                 },
                 xAxis: {
                   labels: {
-                    style: { fontSize: '0.6em' },
-                    rotation: -45 // Rotate labels for space
-                  }
-                }
-              }
-            }, {
-              condition: {
-                minWidth: 250,
-                maxWidth: 400 // Half-width range
-              },
-              chartOptions: {
-                plotOptions: {
-                  series: {
-                    pointPadding: 0.05,
-                    groupPadding: 0.05,
-                    maxPointWidth: 30 // Moderate width bars
+                    style: { fontSize: "14px", color: "#000000" } // Slightly smaller font
                   }
                 },
-                xAxis: {
+                yAxis: {
                   labels: {
-                    style: { fontSize: '0.7em' },
-                    rotation: 0 // Keep horizontal if they fit
-                  }
-                }
-              }
-            }, {
-              condition: {
-                minWidth: 400 // Full width
-              },
-              chartOptions: {
-                plotOptions: {
-                  series: {
-                    pointPadding: 0.1,
-                    groupPadding: 0.1,
-                    //maxPointWidth: 50 // Normal width bars
-                  }
-                },
-                xAxis: {
-                  labels: {
-                    style: { fontSize: '1em' },
-                    rotation: 0
+                    style: { fontSize: "14px", color: "#000000" } // Slightly smaller font
                   }
                 }
               }
@@ -215,4 +173,3 @@
       }
     </script>
   </div>
-</div>
