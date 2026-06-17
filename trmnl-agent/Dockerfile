@@ -17,14 +17,13 @@ RUN apt-get update && apt-get install -y \
     --no-install-recommends \
     && rm -rf /var/lib/apt/lists/*
 
-# Copy pyproject.toml and install Python dependencies
+# Copy the package metadata and source before installing the app package
 COPY pyproject.toml .
-RUN pip install --no-cache-dir .
-
-# Copy application code
 COPY app/ ./app/
 COPY main.py .
 COPY config.py .
+# The --trusted-host options are added to ensure that pip can access the package index without SSL issues primarily from VPN problems
+RUN pip install --no-cache-dir . --trusted-host pypi.org --trusted-host pypi.python.org --trusted-host files.pythonhosted.org setuptools
 
 # Create necessary directories and set permissions
 RUN mkdir -p /app/logs && \

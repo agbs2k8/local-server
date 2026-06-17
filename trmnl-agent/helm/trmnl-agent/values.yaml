@@ -5,31 +5,30 @@
 image:
   repository: trmnl-agent
   pullPolicy: IfNotPresent
-  tag: "latest"
+  tag: "0.0.1"
 
 # CronJob configuration
 cronjob:
-  # Daily at 4:00 AM CST (10:00 AM UTC)
-  schedule: "0 10 * * *"
+  # Daily at 5:00 AM America/Chicago (Central time, DST-aware)
+  schedule: "0 5 * * *"
+  timeZone: "America/Chicago"
   concurrencyPolicy: Forbid
   successfulJobsHistoryLimit: 3
-  failedJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 3
   restartPolicy: OnFailure
   backoffLimit: 2
   activeDeadlineSeconds: 600  # 10 minutes timeout
 
 # Application configuration
 config:
-  appName: "trmnl-agent"
-  logLevel: "INFO"
-  sourceUrl: "https://www.accuweather.com/en/us/lakeville/55044/sinus-weather/2247734"
-  enableHealthCheck: false
-  healthCheckPort: 8080
+  APP_NAME: "trmnl-agent"
+  LOG_LEVEL: "INFO"
+  SOURCE_URL: "https://www.accuweather.com/en/us/lakeville/55044/sinus-weather/2247734"
+  PULL_RETRY: "3"
 
 # Secret configuration (for sensitive data)
 secrets:
-  # This will be set from your .env file
-  webhookUrl: ""
+  WEBHOOK_URL: ""
 
 # Resource limits
 resources:
@@ -61,13 +60,3 @@ serviceAccount:
 # Pod annotations and labels
 podAnnotations: {}
 podLabels: {}
-
-# Environment variables from .env file
-env:
-  # These will be populated from your .env file
-  # APP_NAME: "trmnl-agent"
-  # LOG_LEVEL: "INFO"
-  # SOURCE_URL: "https://www.accuweather.com/en/us/lakeville/55044/sinus-weather/2247734"
-  # WEBHOOK_URL: "https://your-webhook-endpoint.com"
-  # ENABLE_HEALTH_CHECK: "false"
-  # HEALTH_CHECK_PORT: "8080"

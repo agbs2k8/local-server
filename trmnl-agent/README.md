@@ -9,12 +9,12 @@ A Python 3.13 application that runs daily in Kubernetes to extract data from web
 
 ```bash
 cd trmnl-agent
-docker build -t trmnl-agent:latest .
+docker build -t trmnl-agent:0.0.1 .
 ```
 
 ### Run the Docker Image
 ```
-docker run --env-file .env trmnl-agent:latest
+docker run --env-file .env trmnl-agent:0.0.1
 ```
 
 
@@ -43,13 +43,15 @@ python -m pytest --cov .
 
 ```bash
 # Build for local k3s
-docker build -t trmnl-agent:latest .
+docker build -t trmnl-agent:0.0.1 .
 ```
 
 ### Deploy
+```bash
+./deploy.sh
 ```
-DOCKER_HUB_USERNAME=yourusername ./deploy.sh
-```
+
+The deploy script loads `.env`, builds the image for the cluster node architecture, imports it into k3s, removes the existing Helm release artifacts, and reinstalls the CronJob. Set `RUN_POST_DEPLOY_JOB=true` to trigger an immediate smoke-test job after deployment.
 
 ## Monitoring
 
@@ -109,12 +111,14 @@ kubectl create job --from=cronjob/trmnl-agent trmnl-agent-manual-test
 kubectl get job trmnl-agent-manual-test
 kubectl logs job/trmnl-agent-manual-test
 
-# Verify the cron schedule and next run time
-kubectl get cronjob trmnl-agent -o jsonpath='{.spec.schedule}{"\n"}'
+# Verify the cron schedule and timezone
+kubectl get cronjob trmnl-agent -o jsonpath='{.spec.schedule}{" "}{.spec.timeZone}{"\n"}'
 
 # See full cronjob YAML configuration
 kubectl get cronjob trmnl-agent -o yaml
 ```
+
+The default Helm schedule runs at `05:00` in `America/Chicago`, and `deploy.sh` reapplies that schedule on each reinstall.
 
 ## Troubleshooting
 

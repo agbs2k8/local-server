@@ -1,12 +1,9 @@
-import pytest
 import datetime
 from unittest.mock import patch, Mock
 import requests
-from bs4 import BeautifulSoup
+import pytest
 
-# Import the modules to test
-import app
-import utils
+from app import app
 
 
 class TestGetPage:
@@ -26,7 +23,7 @@ class TestGetPage:
         """Test handling of HTTP errors"""
         mock_requests_get.side_effect = requests.HTTPError("404 Not Found")
         
-        with patch('app.logging.error') as mock_log_error:
+        with patch('app.app.logging.error') as mock_log_error:
             result = app.get_page("https://example.com/notfound")
             
             assert result is None
@@ -38,7 +35,7 @@ class TestGetPage:
         """Test handling of connection errors"""
         mock_requests_get.side_effect = requests.ConnectionError("Connection failed")
         
-        with patch('app.logging.error') as mock_log_error:
+        with patch('app.app.logging.error') as mock_log_error:
             result = app.get_page("https://example.com")
             
             assert result is None
@@ -48,7 +45,7 @@ class TestGetPage:
     
     def test_get_page_uses_headers(self, mock_requests_get, mock_response):
         """Test that get_page uses headers from utils.get_headers()"""
-        with patch('app.get_headers') as mock_get_headers:
+        with patch('app.app.get_headers') as mock_get_headers:
             mock_get_headers.return_value = {'User-Agent': 'test-agent'}
             mock_requests_get.return_value = mock_response
             
@@ -57,7 +54,8 @@ class TestGetPage:
             mock_requests_get.assert_called_once_with(
                 "https://example.com", 
                 headers={'User-Agent': 'test-agent'}, 
-                verify=False
+                verify=False,
+                timeout=30
             )
 
 
@@ -72,8 +70,8 @@ class TestParseElement:
             "fill": "#3366cc"
         }
         
-        with patch('app.hex_to_grayscale') as mock_hex_convert, \
-             patch('app.day_of_week') as mock_day_convert:
+        with patch('app.app.hex_to_grayscale') as mock_hex_convert, \
+             patch('app.app.day_of_week') as mock_day_convert:
             mock_hex_convert.return_value = "#5C5C5C"
             mock_day_convert.return_value = "Tue"
             
@@ -90,8 +88,8 @@ class TestParseElement:
             "fill": "#ff0000"
         }
         
-        with patch('app.hex_to_grayscale') as mock_hex_convert, \
-             patch('app.day_of_week') as mock_day_convert:
+        with patch('app.app.hex_to_grayscale') as mock_hex_convert, \
+             patch('app.app.day_of_week') as mock_day_convert:
             mock_hex_convert.return_value = "#808080"
             mock_day_convert.return_value = "Thu"
             
@@ -101,7 +99,6 @@ class TestParseElement:
             mock_day_convert.assert_called_once()
             call_args = mock_day_convert.call_args[0][0]
             assert isinstance(call_args, datetime.datetime)
-            # Note: app.py has a bug using %M instead of %H, so minutes become hour
             assert call_args.year == 2025
             assert call_args.month == 12
             assert call_args.day == 25
@@ -112,7 +109,7 @@ class TestExtractContent:
     
     def test_extract_content_success(self, sample_html_content):
         """Test successful content extraction from HTML"""
-        with patch('app.parse_element') as mock_parse:
+        with patch('app.app.parse_element') as mock_parse:
             mock_parse.side_effect = [
                 {"y": "65", "color": "#5C5C5C", "day": "Tue"},
                 {"y": "72", "color": "#6B6B6B", "day": "Wed"},
@@ -127,10 +124,16 @@ class TestExtractContent:
     def test_extract_content_no_bars(self):
         """Test content extraction with no chart bars"""
         html_content = b"<html><body><p>No chart bars here</p></body></html>"
-        
-        result = app.extract_content(html_content)
-        
-        assert result == []
+
+        with pytest.raises(ValueError, match="index-chart-bar"):
+            app.extract_content(html_content)
+
+    def test_extract_content_requires_body(self):
+        """Test content extraction with missing body"""
+        html_content = b"<html><head><title>Missing body</title></head></html>"
+
+        with pytest.raises(ValueError, match="body element"):
+            app.extract_content(html_content)
     
     def test_extract_content_beautifulsoup_parsing(self, sample_html_content):
         """Test that BeautifulSoup correctly identifies chart bars"""
@@ -140,7 +143,7 @@ class TestExtractContent:
             result_elements.append(element)
             return {"y": element["data-yvalue"], "color": "#808080", "day": "Test"}
         
-        with patch('app.parse_element', side_effect=capture_parse_calls):
+        with patch('app.app.parse_element', side_effect=capture_parse_calls):
             app.extract_content(sample_html_content)
             
             assert len(result_elements) == 3
@@ -198,12 +201,13 @@ class TestWebhookUpload:
         
         test_data = {"test": "data"}
         
-        with patch('app.logging.info') as mock_log_info:
+        with patch('app.app.logging.info') as mock_log_info:
             app.webhook_upload("https://webhook.example.com", test_data)
             
             mock_requests_post.assert_called_once_with(
                 "https://webhook.example.com", 
-                json=test_data
+                json=test_data,
+                verify=False
             )
             mock_log_info.assert_called_with("Data successfully sent to webhook.")
     
@@ -213,7 +217,7 @@ class TestWebhookUpload:
         
         test_data = {"test": "data"}
         
-        with patch('app.logging.error') as mock_log_error:
+        with patch('app.app.logging.error') as mock_log_error:
             app.webhook_upload("https://webhook.example.com", test_data)
             
             mock_log_error.assert_called_once()
@@ -226,7 +230,7 @@ class TestWebhookUpload:
         
         test_data = {"test": "data"}
         
-        with patch('app.logging.error') as mock_log_error:
+        with patch('app.app.logging.error') as mock_log_error:
             app.webhook_upload("https://webhook.example.com", test_data)
             
             mock_log_error.assert_called_once()
@@ -237,12 +241,12 @@ class TestWebhookUpload:
 class TestRunFunction:
     """Test the main run function"""
     
-    @patch('app.webhook_upload')
-    @patch('app.build_trmnl_payload') 
-    @patch('app.extract_content')
-    @patch('app.get_page')
-    @patch('app.logging.basicConfig')
-    @patch('app.logging.getLogger')
+    @patch('app.app.webhook_upload')
+    @patch('app.app.build_trmnl_payload') 
+    @patch('app.app.extract_content')
+    @patch('app.app.get_page')
+    @patch('app.app.logging.config.dictConfig')
+    @patch('app.app.logging.getLogger')
     def test_run_function_integration(self, mock_get_logger, mock_logging_config,
                                     mock_get_page, mock_extract, mock_build_payload, 
                                     mock_webhook):
@@ -256,8 +260,7 @@ class TestRunFunction:
         
         # Create mock config object
         mock_config = Mock()
-        mock_config.APP_NAME = "test-agent"
-        mock_config.LOG_LEVEL = "INFO"
+        mock_config.LOG_CONFIG = {"version": 1}
         mock_config.SOURCE_URL = "https://test.com"
         mock_config.WEBHOOK_URL = "https://webhook.test.com"
         
@@ -265,10 +268,7 @@ class TestRunFunction:
         app.run(mock_config)
         
         # Verify logging setup
-        mock_logging_config.assert_called_once_with(
-            filename="test-agent.log", 
-            level="INFO"
-        )
+        mock_logging_config.assert_called_once_with(mock_config.LOG_CONFIG)
         
         # Verify the workflow
         mock_get_page.assert_called_once_with("https://test.com")
@@ -283,14 +283,68 @@ class TestRunFunction:
         assert mock_logger.info.call_count == 3  # startup, success, completion
         mock_logger.debug.assert_called_once()
 
+    @patch('app.app.webhook_upload')
+    @patch('app.app.build_trmnl_payload')
+    @patch('app.app.extract_content')
+    @patch('app.app.get_page', return_value=None)
+    @patch('app.app.logging.config.dictConfig')
+    @patch('app.app.logging.getLogger')
+    def test_run_function_raises_when_fetch_fails(self, mock_get_logger, mock_logging_config,
+                                                  mock_get_page, mock_extract, mock_build_payload,
+                                                  mock_webhook):
+        """Test that source fetch failures stop the job with a clear error."""
+        mock_logger = Mock()
+        mock_get_logger.return_value = mock_logger
+        mock_config = Mock()
+        mock_config.LOG_CONFIG = {"version": 1}
+        mock_config.SOURCE_URL = "https://test.com"
+        mock_config.WEBHOOK_URL = "https://webhook.test.com"
+
+        with pytest.raises(RuntimeError, match="Failed to fetch source data"):
+            app.run(mock_config)
+
+        mock_logging_config.assert_called_once_with(mock_config.LOG_CONFIG)
+        mock_extract.assert_not_called()
+        mock_build_payload.assert_not_called()
+        mock_webhook.assert_not_called()
+        mock_logger.error.assert_called_once_with("Failed to fetch source data from https://test.com")
+
+    @patch('app.app.webhook_upload')
+    @patch('app.app.build_trmnl_payload')
+    @patch('app.app.extract_content', side_effect=ValueError("missing chart bars"))
+    @patch('app.app.get_page', return_value=b"<html></html>")
+    @patch('app.app.logging.config.dictConfig')
+    @patch('app.app.logging.getLogger')
+    def test_run_function_raises_when_parse_fails(self, mock_get_logger, mock_logging_config,
+                                                  mock_get_page, mock_extract, mock_build_payload,
+                                                  mock_webhook):
+        """Test that source parse failures stop the job with a clear error."""
+        mock_logger = Mock()
+        mock_get_logger.return_value = mock_logger
+        mock_config = Mock()
+        mock_config.LOG_CONFIG = {"version": 1}
+        mock_config.SOURCE_URL = "https://test.com"
+        mock_config.WEBHOOK_URL = "https://webhook.test.com"
+
+        with pytest.raises(RuntimeError, match="Failed to extract source data"):
+            app.run(mock_config)
+
+        mock_logging_config.assert_called_once_with(mock_config.LOG_CONFIG)
+        mock_build_payload.assert_not_called()
+        mock_webhook.assert_not_called()
+        mock_logger.exception.assert_called_once_with(
+            "Source data extraction failed for %s",
+            "https://test.com",
+        )
+
 
 class TestMainIntegration:
     """Integration tests for the individual workflow functions"""
     
-    @patch('app.webhook_upload')
-    @patch('app.build_trmnl_payload')
-    @patch('app.extract_content')
-    @patch('app.get_page')
+    @patch('app.app.webhook_upload')
+    @patch('app.app.build_trmnl_payload')
+    @patch('app.app.extract_content')
+    @patch('app.app.get_page')
     def test_workflow_functions_integration(self, mock_get_page, mock_extract, 
                                           mock_build_payload, mock_webhook):
         """Test the individual workflow functions working together"""

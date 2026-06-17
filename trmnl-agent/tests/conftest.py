@@ -3,9 +3,9 @@ import sys
 from pathlib import Path
 from unittest.mock import Mock, patch
 
-# Add app directory to path for imports
-app_path = Path(__file__).parent.parent / "app"
-sys.path.insert(0, str(app_path))
+# Add the repo root to the path so tests import the app package consistently.
+repo_root = Path(__file__).resolve().parents[1]
+sys.path.insert(0, str(repo_root))
 
 
 @pytest.fixture
