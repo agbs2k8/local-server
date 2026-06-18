@@ -77,7 +77,7 @@ class TestParseElement:
             
             result = app.parse_element(element)
             
-            expected = {"y": "65", "color": "#5C5C5C", "day": "Tue"}
+            expected = {"y": "65", "color": "#5C5C5C", "day": "Tue", "date":"2026-01-21"}
             assert result == expected
     
     def test_parse_element_date_parsing(self):
