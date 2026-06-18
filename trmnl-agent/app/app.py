@@ -30,7 +30,8 @@ def parse_element(el):
     date = datetime.datetime.strptime(el["data-xvalue"], "%m/%d/%Y %H:%M:%S")
     return {"y": el["data-yvalue"],
             "color": hex_to_grayscale(el["fill"]),
-            "day": day_of_week(date)}
+            "day": day_of_week(date),
+            "date": str(date.date())}
 
 
 def extract_content(page_content):

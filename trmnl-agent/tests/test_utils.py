@@ -11,13 +11,13 @@ class TestDayOfWeek:
         """Test all days of the week"""
         # Test data: (year, month, day, expected_result)
         test_cases = [
-            (2026, 1, 20, "Mon"),  # Monday
-            (2026, 1, 21, "Tue"),  # Tuesday  
-            (2026, 1, 22, "Wed"),  # Wednesday
-            (2026, 1, 23, "Thr"),  # Thursday
-            (2026, 1, 24, "Fri"),  # Friday
-            (2026, 1, 25, "Sat"),  # Saturday
-            (2026, 1, 26, "Sun"),  # Sunday
+            (2026, 1, 19, "Mon"),  # Monday
+            (2026, 1, 20, "Tue"),  # Tuesday  
+            (2026, 1, 21, "Wed"),  # Wednesday
+            (2026, 1, 22, "Thr"),  # Thursday
+            (2026, 1, 23, "Fri"),  # Friday
+            (2026, 1, 24, "Sat"),  # Saturday
+            (2026, 1, 25, "Sun"),  # Sunday
         ]
         
         for year, month, day, expected in test_cases:

@@ -1,13 +1,13 @@
 import random
 
 # Static value sets
-DAYS = {0: "Sun",
-        1: "Mon",
-        2: "Tue",
-        3: "Wed",
-        4: "Thr",
-        5: "Fri",
-        6: "Sat"}
+DAYS = {6: "Sun",
+        0: "Mon",
+        1: "Tue",
+        2: "Wed",
+        3: "Thr",
+        4: "Fri",
+        5: "Sat"}
 
 USER_AGENTS = ["Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/109.0.0.0 Safari/537.36",
                "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.1 Safari/605.1.15"]
