@@ -1,0 +1,119 @@
+# Default values for pihole
+# This is a YAML-formatted file
+
+replicaCount: 1
+
+nameOverride: ""
+fullnameOverride: ""
+
+imagePullSecrets: []
+
+image:
+  repository: monitor-agent
+  tag: latest
+  pullPolicy: IfNotPresent
+
+# Application Configuration
+config:
+  APP_NAME: "monitor-agent"
+  LOG_LEVEL: "INFO"
+  LOG_JSON: "false"
+  DEFAULT_POD_LOG_LINES: "50"
+
+# Secret configuration
+secrets:
+  KUBE_CONFIG_PATH: ""
+  existingKubeconfigSecret: ""
+  existingKubeconfigKey: "config"
+
+service:
+  type: NodePort
+  port: 8000
+  targetPort: 8000
+  nodePort: 30080
+  annotations: {}
+
+ingress:
+  enabled: false
+  className: ""
+  annotations: {}
+  hosts:
+    - host: monitor-agent.local
+      paths:
+        - path: /
+          pathType: Prefix
+  tls: []
+
+rbac:
+  create: true
+
+# Resource limits
+resources:
+  limits:
+    cpu: 200m
+    memory: 256Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+# Security context
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+containerSecurityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL
+
+# Health checks
+livenessProbe:
+  enabled: true
+  httpGet:
+    path: /liveness
+    port: http
+  initialDelaySeconds: 60
+  periodSeconds: 30
+  timeoutSeconds: 5
+  failureThreshold: 3
+
+readinessProbe:
+  enabled: true
+  httpGet:
+    path: /readiness
+    port: http
+  initialDelaySeconds: 30
+  periodSeconds: 10
+  timeoutSeconds: 3
+  failureThreshold: 3
+
+# Additional labels for all resources
+labels: {}
+
+# Additional annotations for all resources
+annotations: {}
+
+# Strategy for StatefulSet updates
+strategy:
+  type: RollingUpdate
+  rollingUpdate:
+    partition: 0
+
+# Node selector and tolerations
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+# Service account
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+  automountServiceAccountToken: true
+
+# Pod annotations and labels
+podAnnotations: {}
+podLabels: {}

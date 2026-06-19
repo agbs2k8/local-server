@@ -1,0 +1,17 @@
+1. Access the API over the service:
+  {{- if eq .Values.service.type "NodePort" }}
+  http://<k3s-node-ip>:{{ .Values.service.nodePort }}
+  {{- else if eq .Values.service.type "LoadBalancer" }}
+  Use `kubectl get svc -n {{ .Release.Namespace }} {{ include "monitor-agent.fullname" . }}` to find the external IP.
+  {{- else }}
+  Run `kubectl port-forward -n {{ .Release.Namespace }} svc/{{ include "monitor-agent.fullname" . }} {{ .Values.service.port }}:{{ .Values.service.port }}` and open http://127.0.0.1:{{ .Values.service.port }}
+  {{- end }}
+
+2. Probe endpoints:
+  /liveness
+  /readiness
+
+3. Example API calls:
+  curl http://127.0.0.1:{{ .Values.service.port }}/pods
+  curl http://127.0.0.1:{{ .Values.service.port }}/jobs
+  curl http://127.0.0.1:{{ .Values.service.port }}/cronjobs

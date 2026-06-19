@@ -1,0 +1,16 @@
+apiVersion: v2
+name: monitor-agent
+description: Helm chart for monitor-agent
+type: application
+version: 0.1.0
+appVersion: "0.0.1"
+
+keywords:
+  - monitor
+  - agent
+  - api
+
+maintainers:
+  - name: agbs2k8
+
+home: https://github.com/agbs2k8/local-server/tree/main/monitor-agent

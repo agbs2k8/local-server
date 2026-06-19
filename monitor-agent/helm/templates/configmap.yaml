@@ -1,0 +1,21 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "monitor-agent.configMapName" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "monitor-agent.labels" . | nindent 4 }}
+  {{- with .Values.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  APP_NAME: {{ required "config.APP_NAME is required" .Values.config.APP_NAME | quote }}
+  LOG_LEVEL: {{ required "config.LOG_LEVEL is required" .Values.config.LOG_LEVEL | quote }}
+  LOG_JSON: {{ .Values.config.LOG_JSON | quote }}
+  DEFAULT_POD_LOG_LINES: {{ .Values.config.DEFAULT_POD_LOG_LINES | quote }}
+  {{- if .Values.secrets.KUBE_CONFIG_PATH }}
+  KUBE_CONFIG_PATH: {{ .Values.secrets.KUBE_CONFIG_PATH | quote }}
+  {{- else if .Values.secrets.existingKubeconfigSecret }}
+  KUBE_CONFIG_PATH: {{ printf "%s/%s" (include "monitor-agent.kubeConfigMountPath" .) .Values.secrets.existingKubeconfigKey | quote }}
+  {{- end }}
