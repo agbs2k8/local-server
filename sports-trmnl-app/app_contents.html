@@ -1,0 +1,285 @@
+<div class="view view--full">
+  <style>
+    .scores-board {
+      display: flex;
+      flex-direction: column;
+      font-family: Arial, sans-serif;
+      gap: 10px;
+      height: 100%;
+      justify-content: center;
+      padding: 6px 0 0;
+    }
+
+    .score-section {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      min-height: 0;
+    }
+
+    .score-section--recent {
+      justify-content: flex-start;
+    }
+
+    .score-section--upcoming {
+      justify-content: flex-start;
+    }
+
+    .section-header {
+      align-items: center;
+      display: flex;
+      justify-content: center;
+      margin-bottom: 6px;
+      text-align: center;
+    }
+
+    .section-title {
+      font-size: 16px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-subtitle {
+      color: #444;
+      font-size: 12px;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .section-divider {
+      background: #000;
+      flex: 0 0 1px;
+      opacity: 0.22;
+      width: 100%;
+    }
+
+    .events-list {
+      display: flex;
+      flex: 0 0 auto;
+      flex-direction: column;
+      gap: 4px;
+      min-height: 0;
+    }
+
+    .score-card {
+      border: 1px solid rgba(0, 0, 0, 0.18);
+      border-radius: 12px;
+      display: grid;
+      gap: 10px;
+      grid-template-columns: minmax(0, 1fr) auto;
+      padding: 12px 14px;
+    }
+
+    .score-card--upcoming {
+      grid-template-columns: minmax(0, 1fr);
+    }
+
+    .score-card__main {
+      min-width: 0;
+    }
+
+    .score-card__title {
+      display: block;
+      font-size: 19px;
+      font-weight: 700;
+      line-height: 1.15;
+      margin-bottom: 4px;
+    }
+
+    .score-card__meta {
+      color: #4a4a4a;
+      display: flex;
+      flex-wrap: wrap;
+      font-size: 13px;
+      gap: 6px;
+      line-height: 1.25;
+    }
+
+    .score-card__score {
+      align-items: center;
+      display: flex;
+      font-size: 28px;
+      font-variant-numeric: tabular-nums;
+      font-weight: 700;
+      justify-content: flex-end;
+      line-height: 1;
+      min-width: 74px;
+      text-align: right;
+      white-space: nowrap;
+    }
+
+    .empty-state {
+      align-items: center;
+      border: 1px dashed rgba(0, 0, 0, 0.2);
+      border-radius: 12px;
+      color: #555;
+      display: flex;
+      flex: 1 1 auto;
+      font-size: 14px;
+      justify-content: center;
+      letter-spacing: 0.02em;
+      min-height: 58px;
+      padding: 12px;
+      text-align: center;
+    }
+
+    @media (max-width: 799px) {
+      .scores-board {
+        gap: 8px;
+      }
+
+      .score-card {
+        gap: 8px;
+        padding: 10px 12px;
+      }
+
+      .score-card__title {
+        font-size: 17px;
+      }
+
+      .score-card__score {
+        font-size: 24px;
+        min-width: 62px;
+      }
+    }
+
+    @media (min-width: 1024px) {
+      .scores-board {
+        gap: 12px;
+      }
+
+      .score-card {
+        padding: 14px 16px;
+      }
+
+      .score-card__title {
+        font-size: 20px;
+      }
+
+      .score-card__score {
+        font-size: 30px;
+      }
+    }
+
+    @media (orientation: portrait) {
+      .score-card {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .score-card__score {
+        justify-content: flex-start;
+        min-width: 0;
+        text-align: left;
+      }
+    }
+  </style>
+
+  <div class="title_bar">
+    <img class="image" src="/images/plugins/trmnl--render.svg">
+    <span class="title">Sports Scores</span>
+  </div>
+
+  <div class="layout layout--col layout--stretch-y">
+    <div class="scores-board flex flex--col gap--small md:gap--large lg:gap--xlarge stretch-y">
+      <section class="score-section score-section--recent stretch-x">
+        <div class="section-header">
+          <span class="section-title">Completed</span>
+        </div>
+        <div id="recent-events" class="events-list"></div>
+      </section>
+
+      <div class="section-divider"></div>
+
+      <section class="score-section score-section--upcoming stretch-x">
+        <div class="section-header">
+          <span class="section-title">Upcoming</span>
+        </div>
+        <div id="upcoming-events" class="events-list"></div>
+      </section>
+    </div>
+  </div>
+
+  <script type="text/javascript">
+    (function() {
+      function normalizeValue(value) {
+        if (value === undefined || value === null) {
+          return "";
+        }
+
+        var text = String(value).trim();
+
+        if (!text || text === "None" || text === "null" || text === "undefined") {
+          return "";
+        }
+
+        if (text.indexOf("{{") === 0 && text.lastIndexOf("}}") === text.length - 2) {
+          return "";
+        }
+
+        return text;
+      }
+
+      function formatDate(rawDate) {
+        var value = normalizeValue(rawDate);
+        return value || "Date TBD";
+      }
+
+      function buildCard(eventData, type) {
+        var hasScore = type === "recent" && normalizeValue(eventData.score);
+        var cardClass = type === "recent" ? "score-card" : "score-card score-card--upcoming";
+        var scoreMarkup = hasScore ? '<div class="score-card__score">' + eventData.score + '</div>' : "";
+
+        return [
+          '<article class="' + cardClass + '">',
+          '  <div class="score-card__main">',
+          '    <span class="score-card__title">' + eventData.name + '</span>',
+          '    <div class="score-card__meta">',
+          '      <span>' + formatDate(eventData.date) + '</span>',
+          '    </div>',
+          '  </div>',
+          scoreMarkup,
+          '</article>'
+        ].join("");
+      }
+
+      function renderSection(elementId, events, type) {
+        var root = document.getElementById(elementId);
+        var visibleEvents = events.filter(function(eventData) {
+          return normalizeValue(eventData.name);
+        }).slice(0, 3).map(function(eventData) {
+          return {
+            date: normalizeValue(eventData.date),
+            name: normalizeValue(eventData.name),
+            score: normalizeValue(eventData.score)
+          };
+        });
+
+        if (!visibleEvents.length) {
+          root.innerHTML = '<div class="empty-state">No ' + (type === "recent" ? "completed" : "upcoming") + ' events available.</div>';
+          return;
+        }
+
+        root.innerHTML = visibleEvents.map(function(eventData) {
+          return buildCard(eventData, type);
+        }).join("");
+      }
+
+      var data = {
+        recent: [
+          { date: "{{last.0.date}}", name: "{{last.0.name}}", score: "{{last.0.score}}" },
+          { date: "{{last.1.date}}", name: "{{last.1.name}}", score: "{{last.1.score}}" },
+          { date: "{{last.2.date}}", name: "{{last.2.name}}", score: "{{last.2.score}}" }
+        ],
+        upcoming: [
+          { date: "{{next.0.date}}", name: "{{next.0.name}}", score: "" },
+          { date: "{{next.1.date}}", name: "{{next.1.name}}", score: "" },
+          { date: "{{next.2.date}}", name: "{{next.2.name}}", score: "" }
+        ]
+      };
+
+      renderSection("recent-events", data.recent, "recent");
+      renderSection("upcoming-events", data.upcoming, "upcoming");
+    })();
+  </script>
+</div>

@@ -1,0 +1,1353 @@
+{
+    "NFL": {
+        "display_name": "National Football League",
+        "teams_url": "http://site.api.espn.com/apis/site/v2/sports/football/nfl/teams",
+        "scoreboard_url": "http://site.api.espn.com/apis/site/v2/sports/football/nfl/scoreboard",
+        "teams": {
+            "arizona-cardinals": {
+                "number": "22",
+                "uid": "s:20~l:28~t:22",
+                "name": "Cardinals",
+                "display_name": "Arizona Cardinals",
+                "logo_path": "./resources/icons/NFL/arizona-cardinals.svg"
+            },
+            "atlanta-falcons": {
+                "number": "1",
+                "uid": "s:20~l:28~t:1",
+                "name": "Falcons",
+                "display_name": "Atlanta Falcons",
+                "logo_path": "./resources/icons/NFL/atlanta-falcons.svg"
+            },
+            "baltimore-ravens": {
+                "number": "33",
+                "uid": "s:20~l:28~t:33",
+                "name": "Ravens",
+                "display_name": "Baltimore Ravens",
+                "logo_path": "./resources/icons/NFL/baltimore-ravens.svg"
+            },
+            "buffalo-bills": {
+                "number": "2",
+                "uid": "s:20~l:28~t:2",
+                "name": "Bills",
+                "display_name": "Buffalo Bills",
+                "logo_path": "./resources/icons/NFL/buffalo-bills.svg"
+            },
+            "carolina-panthers": {
+                "number": "29",
+                "uid": "s:20~l:28~t:29",
+                "name": "Panthers",
+                "display_name": "Carolina Panthers",
+                "logo_path": "./resources/icons/NFL/carolina-panthers.svg"
+            },
+            "chicago-bears": {
+                "number": "3",
+                "uid": "s:20~l:28~t:3",
+                "name": "Bears",
+                "display_name": "Chicago Bears",
+                "logo_path": "./resources/icons/NFL/chicago-bears.svg"
+            },
+            "cincinnati-bengals": {
+                "number": "4",
+                "uid": "s:20~l:28~t:4",
+                "name": "Bengals",
+                "display_name": "Cincinnati Bengals",
+                "logo_path": "./resources/icons/NFL/cincinnati-bengals.svg"
+            },
+            "cleveland-browns": {
+                "number": "5",
+                "uid": "s:20~l:28~t:5",
+                "name": "Browns",
+                "display_name": "Cleveland Browns",
+                "logo_path": "./resources/icons/NFL/cleveland-browns.svg"
+            },
+            "dallas-cowboys": {
+                "number": "6",
+                "uid": "s:20~l:28~t:6",
+                "name": "Cowboys",
+                "display_name": "Dallas Cowboys",
+                "logo_path": "./resources/icons/NFL/dallas-cowboys.svg"
+            },
+            "denver-broncos": {
+                "number": "7",
+                "uid": "s:20~l:28~t:7",
+                "name": "Broncos",
+                "display_name": "Denver Broncos",
+                "logo_path": "./resources/icons/NFL/denver-broncos.svg"
+            },
+            "detroit-lions": {
+                "number": "8",
+                "uid": "s:20~l:28~t:8",
+                "name": "Lions",
+                "display_name": "Detroit Lions",
+                "logo_path": "./resources/icons/NFL/detroit-lions.svg"
+            },
+            "green-bay-packers": {
+                "number": "9",
+                "uid": "s:20~l:28~t:9",
+                "name": "Packers",
+                "display_name": "Green Bay Packers",
+                "logo_path": "./resources/icons/NFL/green-bay-packers.svg"
+            },
+            "houston-texans": {
+                "number": "34",
+                "uid": "s:20~l:28~t:34",
+                "name": "Texans",
+                "display_name": "Houston Texans",
+                "logo_path": "./resources/icons/NFL/houston-texans.svg"
+            },
+            "indianapolis-colts": {
+                "number": "11",
+                "uid": "s:20~l:28~t:11",
+                "name": "Colts",
+                "display_name": "Indianapolis Colts",
+                "logo_path": "./resources/icons/NFL/indianapolis-colts.svg"
+            },
+            "jacksonville-jaguars": {
+                "number": "30",
+                "uid": "s:20~l:28~t:30",
+                "name": "Jaguars",
+                "display_name": "Jacksonville Jaguars",
+                "logo_path": "./resources/icons/NFL/jacksonville-jaguars.svg"
+            },
+            "kansas-city-chiefs": {
+                "number": "12",
+                "uid": "s:20~l:28~t:12",
+                "name": "Chiefs",
+                "display_name": "Kansas City Chiefs",
+                "logo_path": "./resources/icons/NFL/kansas-city-chiefs.svg"
+            },
+            "las-vegas-raiders": {
+                "number": "13",
+                "uid": "s:20~l:28~t:13",
+                "name": "Raiders",
+                "display_name": "Las Vegas Raiders",
+                "logo_path": "./resources/icons/NFL/las-vegas-raiders.svg"
+            },
+            "los-angeles-chargers": {
+                "number": "24",
+                "uid": "s:20~l:28~t:24",
+                "name": "Chargers",
+                "display_name": "Los Angeles Chargers",
+                "logo_path": "./resources/icons/NFL/los-angeles-chargers.svg"
+            },
+            "los-angeles-rams": {
+                "number": "14",
+                "uid": "s:20~l:28~t:14",
+                "name": "Rams",
+                "display_name": "Los Angeles Rams",
+                "logo_path": "./resources/icons/NFL/los-angeles-rams.svg"
+            },
+            "miami-dolphins": {
+                "number": "15",
+                "uid": "s:20~l:28~t:15",
+                "name": "Dolphins",
+                "display_name": "Miami Dolphins",
+                "logo_path": "./resources/icons/NFL/miami-dolphins.svg"
+            },
+            "minnesota-vikings": {
+                "number": "16",
+                "uid": "s:20~l:28~t:16",
+                "name": "Vikings",
+                "display_name": "Minnesota Vikings",
+                "logo_path": "./resources/icons/NFL/minnesota-vikings.svg"
+            },
+            "new-england-patriots": {
+                "number": "17",
+                "uid": "s:20~l:28~t:17",
+                "name": "Patriots",
+                "display_name": "New England Patriots",
+                "logo_path": "./resources/icons/NFL/new-england-patriots.svg"
+            },
+            "new-orleans-saints": {
+                "number": "18",
+                "uid": "s:20~l:28~t:18",
+                "name": "Saints",
+                "display_name": "New Orleans Saints",
+                "logo_path": "./resources/icons/NFL/new-orleans-saints.svg"
+            },
+            "new-york-giants": {
+                "number": "19",
+                "uid": "s:20~l:28~t:19",
+                "name": "Giants",
+                "display_name": "New York Giants",
+                "logo_path": "./resources/icons/NFL/new-york-giants.svg"
+            },
+            "new-york-jets": {
+                "number": "20",
+                "uid": "s:20~l:28~t:20",
+                "name": "Jets",
+                "display_name": "New York Jets",
+                "logo_path": "./resources/icons/NFL/new-york-jets.svg"
+            },
+            "philadelphia-eagles": {
+                "number": "21",
+                "uid": "s:20~l:28~t:21",
+                "name": "Eagles",
+                "display_name": "Philadelphia Eagles",
+                "logo_path": "./resources/icons/NFL/philadelphia-eagles.svg"
+            },
+            "pittsburgh-steelers": {
+                "number": "23",
+                "uid": "s:20~l:28~t:23",
+                "name": "Steelers",
+                "display_name": "Pittsburgh Steelers",
+                "logo_path": "./resources/icons/NFL/pittsburgh-steelers.svg"
+            },
+            "san-francisco-49ers": {
+                "number": "25",
+                "uid": "s:20~l:28~t:25",
+                "name": "49ers",
+                "display_name": "San Francisco 49ers",
+                "logo_path": "./resources/icons/NFL/san-francisco-49ers.svg"
+            },
+            "seattle-seahawks": {
+                "number": "26",
+                "uid": "s:20~l:28~t:26",
+                "name": "Seahawks",
+                "display_name": "Seattle Seahawks",
+                "logo_path": "./resources/icons/NFL/seattle-seahawks.svg"
+            },
+            "tampa-bay-buccaneers": {
+                "number": "27",
+                "uid": "s:20~l:28~t:27",
+                "name": "Buccaneers",
+                "display_name": "Tampa Bay Buccaneers",
+                "logo_path": "./resources/icons/NFL/tampa-bay-buccaneers.svg"
+            },
+            "tennessee-titans": {
+                "number": "10",
+                "uid": "s:20~l:28~t:10",
+                "name": "Titans",
+                "display_name": "Tennessee Titans",
+                "logo_path": "./resources/icons/NFL/tennessee-titans.svg"
+            },
+            "washington-commanders": {
+                "number": "28",
+                "uid": "s:20~l:28~t:28",
+                "name": "Commanders",
+                "display_name": "Washington Commanders",
+                "logo_path": "./resources/icons/NFL/washington-commanders.svg"
+            }
+        }
+    },
+    "MLB": {
+        "display_name": "Major League Baseball",
+        "teams_url": "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/teams",
+        "scoreboard_url": "http://site.api.espn.com/apis/site/v2/sports/baseball/mlb/scoreboard",
+        "teams": {
+            "arizona-diamondbacks": {
+                "number": "29",
+                "uid": "s:1~l:10~t:29",
+                "name": "Diamondbacks",
+                "display_name": "Arizona Diamondbacks",
+                "logo_path": "./resources/icons/MLB/arizona-diamondbacks.svg"
+            },
+            "athletics": {
+                "number": "11",
+                "uid": "s:1~l:10~t:11",
+                "name": "Athletics",
+                "display_name": "Athletics",
+                "logo_path": "./resources/icons/MLB/athletics.svg"
+            },
+            "atlanta-braves": {
+                "number": "15",
+                "uid": "s:1~l:10~t:15",
+                "name": "Braves",
+                "display_name": "Atlanta Braves",
+                "logo_path": "./resources/icons/MLB/atlanta-braves.svg"
+            },
+            "baltimore-orioles": {
+                "number": "1",
+                "uid": "s:1~l:10~t:1",
+                "name": "Orioles",
+                "display_name": "Baltimore Orioles",
+                "logo_path": "./resources/icons/MLB/baltimore-orioles.svg"
+            },
+            "boston-red-sox": {
+                "number": "2",
+                "uid": "s:1~l:10~t:2",
+                "name": "Red Sox",
+                "display_name": "Boston Red Sox",
+                "logo_path": "./resources/icons/MLB/boston-red-sox.svg"
+            },
+            "chicago-cubs": {
+                "number": "16",
+                "uid": "s:1~l:10~t:16",
+                "name": "Cubs",
+                "display_name": "Chicago Cubs",
+                "logo_path": "./resources/icons/MLB/chicago-cubs.svg"
+            },
+            "chicago-white-sox": {
+                "number": "4",
+                "uid": "s:1~l:10~t:4",
+                "name": "White Sox",
+                "display_name": "Chicago White Sox",
+                "logo_path": "./resources/icons/MLB/chicago-white-sox.svg"
+            },
+            "cincinnati-reds": {
+                "number": "17",
+                "uid": "s:1~l:10~t:17",
+                "name": "Reds",
+                "display_name": "Cincinnati Reds",
+                "logo_path": "./resources/icons/MLB/cincinnati-reds.svg"
+            },
+            "cleveland-guardians": {
+                "number": "5",
+                "uid": "s:1~l:10~t:5",
+                "name": "Guardians",
+                "display_name": "Cleveland Guardians",
+                "logo_path": "./resources/icons/MLB/cleveland-guardians.svg"
+            },
+            "colorado-rockies": {
+                "number": "27",
+                "uid": "s:1~l:10~t:27",
+                "name": "Rockies",
+                "display_name": "Colorado Rockies",
+                "logo_path": "./resources/icons/MLB/colorado-rockies.svg"
+            },
+            "detroit-tigers": {
+                "number": "6",
+                "uid": "s:1~l:10~t:6",
+                "name": "Tigers",
+                "display_name": "Detroit Tigers",
+                "logo_path": "./resources/icons/MLB/detroit-tigers.svg"
+            },
+            "houston-astros": {
+                "number": "18",
+                "uid": "s:1~l:10~t:18",
+                "name": "Astros",
+                "display_name": "Houston Astros",
+                "logo_path": "./resources/icons/MLB/houston-astros.svg"
+            },
+            "kansas-city-royals": {
+                "number": "7",
+                "uid": "s:1~l:10~t:7",
+                "name": "Royals",
+                "display_name": "Kansas City Royals",
+                "logo_path": "./resources/icons/MLB/kansas-city-royals.svg"
+            },
+            "los-angeles-angels": {
+                "number": "3",
+                "uid": "s:1~l:10~t:3",
+                "name": "Angels",
+                "display_name": "Los Angeles Angels",
+                "logo_path": "./resources/icons/MLB/los-angeles-angels.svg"
+            },
+            "los-angeles-dodgers": {
+                "number": "19",
+                "uid": "s:1~l:10~t:19",
+                "name": "Dodgers",
+                "display_name": "Los Angeles Dodgers",
+                "logo_path": "./resources/icons/MLB/los-angeles-dodgers.svg"
+            },
+            "miami-marlins": {
+                "number": "28",
+                "uid": "s:1~l:10~t:28",
+                "name": "Marlins",
+                "display_name": "Miami Marlins",
+                "logo_path": "./resources/icons/MLB/miami-marlins.svg"
+            },
+            "milwaukee-brewers": {
+                "number": "8",
+                "uid": "s:1~l:10~t:8",
+                "name": "Brewers",
+                "display_name": "Milwaukee Brewers",
+                "logo_path": "./resources/icons/MLB/milwaukee-brewers.svg"
+            },
+            "minnesota-twins": {
+                "number": "9",
+                "uid": "s:1~l:10~t:9",
+                "name": "Twins",
+                "display_name": "Minnesota Twins",
+                "logo_path": "./resources/icons/MLB/minnesota-twins.svg"
+            },
+            "new-york-mets": {
+                "number": "21",
+                "uid": "s:1~l:10~t:21",
+                "name": "Mets",
+                "display_name": "New York Mets",
+                "logo_path": "./resources/icons/MLB/new-york-mets.svg"
+            },
+            "new-york-yankees": {
+                "number": "10",
+                "uid": "s:1~l:10~t:10",
+                "name": "Yankees",
+                "display_name": "New York Yankees",
+                "logo_path": "./resources/icons/MLB/new-york-yankees.svg"
+            },
+            "philadelphia-phillies": {
+                "number": "22",
+                "uid": "s:1~l:10~t:22",
+                "name": "Phillies",
+                "display_name": "Philadelphia Phillies",
+                "logo_path": "./resources/icons/MLB/philadelphia-phillies.svg"
+            },
+            "pittsburgh-pirates": {
+                "number": "23",
+                "uid": "s:1~l:10~t:23",
+                "name": "Pirates",
+                "display_name": "Pittsburgh Pirates",
+                "logo_path": "./resources/icons/MLB/pittsburgh-pirates.svg"
+            },
+            "san-diego-padres": {
+                "number": "25",
+                "uid": "s:1~l:10~t:25",
+                "name": "Padres",
+                "display_name": "San Diego Padres",
+                "logo_path": "./resources/icons/MLB/san-diego-padres.svg"
+            },
+            "san-francisco-giants": {
+                "number": "26",
+                "uid": "s:1~l:10~t:26",
+                "name": "Giants",
+                "display_name": "San Francisco Giants",
+                "logo_path": "./resources/icons/MLB/san-francisco-giants.svg"
+            },
+            "seattle-mariners": {
+                "number": "12",
+                "uid": "s:1~l:10~t:12",
+                "name": "Mariners",
+                "display_name": "Seattle Mariners",
+                "logo_path": "./resources/icons/MLB/seattle-mariners.svg"
+            },
+            "st-louis-cardinals": {
+                "number": "24",
+                "uid": "s:1~l:10~t:24",
+                "name": "Cardinals",
+                "display_name": "St. Louis Cardinals",
+                "logo_path": "./resources/icons/MLB/st-louis-cardinals.svg"
+            },
+            "tampa-bay-rays": {
+                "number": "30",
+                "uid": "s:1~l:10~t:30",
+                "name": "Rays",
+                "display_name": "Tampa Bay Rays",
+                "logo_path": "./resources/icons/MLB/tampa-bay-rays.svg"
+            },
+            "texas-rangers": {
+                "number": "13",
+                "uid": "s:1~l:10~t:13",
+                "name": "Rangers",
+                "display_name": "Texas Rangers",
+                "logo_path": "./resources/icons/MLB/texas-rangers.svg"
+            },
+            "toronto-blue-jays": {
+                "number": "14",
+                "uid": "s:1~l:10~t:14",
+                "name": "Blue Jays",
+                "display_name": "Toronto Blue Jays",
+                "logo_path": "./resources/icons/MLB/toronto-blue-jays.svg"
+            },
+            "washington-nationals": {
+                "number": "20",
+                "uid": "s:1~l:10~t:20",
+                "name": "Nationals",
+                "display_name": "Washington Nationals",
+                "logo_path": "./resources/icons/MLB/washington-nationals.svg"
+            }
+        }
+    },
+    "NHL": {
+        "display_name": "National Hockey League",
+        "teams_url": "http://site.api.espn.com/apis/site/v2/sports/hockey/nhl/teams",
+        "scoreboard_url": "http://site.api.espn.com/apis/site/v2/sports/hockey/nhl/scoreboard",
+        "teams": {
+            "anaheim-ducks": {
+                "number": "25",
+                "uid": "s:70~l:90~t:25",
+                "name": "Ducks",
+                "display_name": "Anaheim Ducks",
+                "logo_path": "./resources/icons/NHL/anaheim-ducks.svg"
+            },
+            "boston-bruins": {
+                "number": "1",
+                "uid": "s:70~l:90~t:1",
+                "name": "Bruins",
+                "display_name": "Boston Bruins",
+                "logo_path": "./resources/icons/NHL/boston-bruins.svg"
+            },
+            "buffalo-sabres": {
+                "number": "2",
+                "uid": "s:70~l:90~t:2",
+                "name": "Sabres",
+                "display_name": "Buffalo Sabres",
+                "logo_path": "./resources/icons/NHL/buffalo-sabres.svg"
+            },
+            "calgary-flames": {
+                "number": "3",
+                "uid": "s:70~l:90~t:3",
+                "name": "Flames",
+                "display_name": "Calgary Flames",
+                "logo_path": "./resources/icons/NHL/calgary-flames.svg"
+            },
+            "carolina-hurricanes": {
+                "number": "7",
+                "uid": "s:70~l:90~t:7",
+                "name": "Hurricanes",
+                "display_name": "Carolina Hurricanes",
+                "logo_path": "./resources/icons/NHL/carolina-hurricanes.svg"
+            },
+            "chicago-blackhawks": {
+                "number": "4",
+                "uid": "s:70~l:90~t:4",
+                "name": "Blackhawks",
+                "display_name": "Chicago Blackhawks",
+                "logo_path": "./resources/icons/NHL/chicago-blackhawks.svg"
+            },
+            "colorado-avalanche": {
+                "number": "17",
+                "uid": "s:70~l:90~t:17",
+                "name": "Avalanche",
+                "display_name": "Colorado Avalanche",
+                "logo_path": "./resources/icons/NHL/colorado-avalanche.svg"
+            },
+            "columbus-blue-jackets": {
+                "number": "29",
+                "uid": "s:70~l:90~t:29",
+                "name": "Blue Jackets",
+                "display_name": "Columbus Blue Jackets",
+                "logo_path": "./resources/icons/NHL/columbus-blue-jackets.svg"
+            },
+            "dallas-stars": {
+                "number": "9",
+                "uid": "s:70~l:90~t:9",
+                "name": "Stars",
+                "display_name": "Dallas Stars",
+                "logo_path": "./resources/icons/NHL/dallas-stars.svg"
+            },
+            "detroit-red-wings": {
+                "number": "5",
+                "uid": "s:70~l:90~t:5",
+                "name": "Red Wings",
+                "display_name": "Detroit Red Wings",
+                "logo_path": "./resources/icons/NHL/detroit-red-wings.svg"
+            },
+            "edmonton-oilers": {
+                "number": "6",
+                "uid": "s:70~l:90~t:6",
+                "name": "Oilers",
+                "display_name": "Edmonton Oilers",
+                "logo_path": "./resources/icons/NHL/edmonton-oilers.svg"
+            },
+            "florida-panthers": {
+                "number": "26",
+                "uid": "s:70~l:90~t:26",
+                "name": "Panthers",
+                "display_name": "Florida Panthers",
+                "logo_path": "./resources/icons/NHL/florida-panthers.svg"
+            },
+            "los-angeles-kings": {
+                "number": "8",
+                "uid": "s:70~l:90~t:8",
+                "name": "Kings",
+                "display_name": "Los Angeles Kings",
+                "logo_path": "./resources/icons/NHL/los-angeles-kings.svg"
+            },
+            "minnesota-wild": {
+                "number": "30",
+                "uid": "s:70~l:90~t:30",
+                "name": "Wild",
+                "display_name": "Minnesota Wild",
+                "logo_path": "./resources/icons/NHL/minnesota-wild.svg"
+            },
+            "montreal-canadiens": {
+                "number": "10",
+                "uid": "s:70~l:90~t:10",
+                "name": "Canadiens",
+                "display_name": "Montreal Canadiens",
+                "logo_path": "./resources/icons/NHL/montreal-canadiens.svg"
+            },
+            "nashville-predators": {
+                "number": "27",
+                "uid": "s:70~l:90~t:27",
+                "name": "Predators",
+                "display_name": "Nashville Predators",
+                "logo_path": "./resources/icons/NHL/nashville-predators.svg"
+            },
+            "new-jersey-devils": {
+                "number": "11",
+                "uid": "s:70~l:90~t:11",
+                "name": "Devils",
+                "display_name": "New Jersey Devils",
+                "logo_path": "./resources/icons/NHL/new-jersey-devils.svg"
+            },
+            "new-york-islanders": {
+                "number": "12",
+                "uid": "s:70~l:90~t:12",
+                "name": "Islanders",
+                "display_name": "New York Islanders",
+                "logo_path": "./resources/icons/NHL/new-york-islanders.svg"
+            },
+            "new-york-rangers": {
+                "number": "13",
+                "uid": "s:70~l:90~t:13",
+                "name": "Rangers",
+                "display_name": "New York Rangers",
+                "logo_path": "./resources/icons/NHL/new-york-rangers.svg"
+            },
+            "ottawa-senators": {
+                "number": "14",
+                "uid": "s:70~l:90~t:14",
+                "name": "Senators",
+                "display_name": "Ottawa Senators",
+                "logo_path": "./resources/icons/NHL/ottawa-senators.svg"
+            },
+            "philadelphia-flyers": {
+                "number": "15",
+                "uid": "s:70~l:90~t:15",
+                "name": "Flyers",
+                "display_name": "Philadelphia Flyers",
+                "logo_path": "./resources/icons/NHL/philadelphia-flyers.svg"
+            },
+            "pittsburgh-penguins": {
+                "number": "16",
+                "uid": "s:70~l:90~t:16",
+                "name": "Penguins",
+                "display_name": "Pittsburgh Penguins",
+                "logo_path": "./resources/icons/NHL/pittsburgh-penguins.svg"
+            },
+            "san-jose-sharks": {
+                "number": "18",
+                "uid": "s:70~l:90~t:18",
+                "name": "Sharks",
+                "display_name": "San Jose Sharks",
+                "logo_path": "./resources/icons/NHL/san-jose-sharks.svg"
+            },
+            "seattle-kraken": {
+                "number": "124292",
+                "uid": "s:70~l:90~t:124292",
+                "name": "Kraken",
+                "display_name": "Seattle Kraken",
+                "logo_path": "./resources/icons/NHL/seattle-kraken.svg"
+            },
+            "st-louis-blues": {
+                "number": "19",
+                "uid": "s:70~l:90~t:19",
+                "name": "Blues",
+                "display_name": "St. Louis Blues",
+                "logo_path": "./resources/icons/NHL/st-louis-blues.svg"
+            },
+            "tampa-bay-lightning": {
+                "number": "20",
+                "uid": "s:70~l:90~t:20",
+                "name": "Lightning",
+                "display_name": "Tampa Bay Lightning",
+                "logo_path": "./resources/icons/NHL/tampa-bay-lightning.svg"
+            },
+            "toronto-maple-leafs": {
+                "number": "21",
+                "uid": "s:70~l:90~t:21",
+                "name": "Maple Leafs",
+                "display_name": "Toronto Maple Leafs",
+                "logo_path": "./resources/icons/NHL/toronto-maple-leafs.svg"
+            },
+            "utah-mammoth": {
+                "number": "129764",
+                "uid": "s:70~l:90~t:129764",
+                "name": "Mammoth",
+                "display_name": "Utah Mammoth",
+                "logo_path": "./resources/icons/NHL/utah-mammoth.svg"
+            },
+            "vancouver-canucks": {
+                "number": "22",
+                "uid": "s:70~l:90~t:22",
+                "name": "Canucks",
+                "display_name": "Vancouver Canucks",
+                "logo_path": "./resources/icons/NHL/vancouver-canucks.svg"
+            },
+            "vegas-golden-knights": {
+                "number": "37",
+                "uid": "s:70~l:90~t:37",
+                "name": "Golden Knights",
+                "display_name": "Vegas Golden Knights",
+                "logo_path": "./resources/icons/NHL/vegas-golden-knights.svg"
+            },
+            "washington-capitals": {
+                "number": "23",
+                "uid": "s:70~l:90~t:23",
+                "name": "Capitals",
+                "display_name": "Washington Capitals",
+                "logo_path": "./resources/icons/NHL/washington-capitals.svg"
+            },
+            "winnipeg-jets": {
+                "number": "28",
+                "uid": "s:70~l:90~t:28",
+                "name": "Jets",
+                "display_name": "Winnipeg Jets",
+                "logo_path": "./resources/icons/NHL/winnipeg-jets.svg"
+            }
+        }
+    },
+    "NBA": {
+        "display_name": "National Basketball Association",
+        "teams_url": "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/teams",
+        "scoreboard_url": "http://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard",
+        "teams": {
+            "atlanta-hawks": {
+                "number": "1",
+                "uid": "s:40~l:46~t:1",
+                "name": "Hawks",
+                "display_name": "Atlanta Hawks",
+                "logo_path": "./resources/icons/NBA/atlanta-hawks.svg"
+            },
+            "boston-celtics": {
+                "number": "2",
+                "uid": "s:40~l:46~t:2",
+                "name": "Celtics",
+                "display_name": "Boston Celtics",
+                "logo_path": "./resources/icons/NBA/boston-celtics.svg"
+            },
+            "brooklyn-nets": {
+                "number": "17",
+                "uid": "s:40~l:46~t:17",
+                "name": "Nets",
+                "display_name": "Brooklyn Nets",
+                "logo_path": "./resources/icons/NBA/brooklyn-nets.svg"
+            },
+            "charlotte-hornets": {
+                "number": "30",
+                "uid": "s:40~l:46~t:30",
+                "name": "Hornets",
+                "display_name": "Charlotte Hornets",
+                "logo_path": "./resources/icons/NBA/charlotte-hornets.svg"
+            },
+            "chicago-bulls": {
+                "number": "4",
+                "uid": "s:40~l:46~t:4",
+                "name": "Bulls",
+                "display_name": "Chicago Bulls",
+                "logo_path": "./resources/icons/NBA/chicago-bulls.svg"
+            },
+            "cleveland-cavaliers": {
+                "number": "5",
+                "uid": "s:40~l:46~t:5",
+                "name": "Cavaliers",
+                "display_name": "Cleveland Cavaliers",
+                "logo_path": "./resources/icons/NBA/cleveland-cavaliers.svg"
+            },
+            "dallas-mavericks": {
+                "number": "6",
+                "uid": "s:40~l:46~t:6",
+                "name": "Mavericks",
+                "display_name": "Dallas Mavericks",
+                "logo_path": "./resources/icons/NBA/dallas-mavericks.svg"
+            },
+            "denver-nuggets": {
+                "number": "7",
+                "uid": "s:40~l:46~t:7",
+                "name": "Nuggets",
+                "display_name": "Denver Nuggets",
+                "logo_path": "./resources/icons/NBA/denver-nuggets.svg"
+            },
+            "detroit-pistons": {
+                "number": "8",
+                "uid": "s:40~l:46~t:8",
+                "name": "Pistons",
+                "display_name": "Detroit Pistons",
+                "logo_path": "./resources/icons/NBA/detroit-pistons.svg"
+            },
+            "golden-state-warriors": {
+                "number": "9",
+                "uid": "s:40~l:46~t:9",
+                "name": "Warriors",
+                "display_name": "Golden State Warriors",
+                "logo_path": "./resources/icons/NBA/golden-state-warriors.svg"
+            },
+            "houston-rockets": {
+                "number": "10",
+                "uid": "s:40~l:46~t:10",
+                "name": "Rockets",
+                "display_name": "Houston Rockets",
+                "logo_path": "./resources/icons/NBA/houston-rockets.svg"
+            },
+            "indiana-pacers": {
+                "number": "11",
+                "uid": "s:40~l:46~t:11",
+                "name": "Pacers",
+                "display_name": "Indiana Pacers",
+                "logo_path": "./resources/icons/NBA/indiana-pacers.svg"
+            },
+            "la-clippers": {
+                "number": "12",
+                "uid": "s:40~l:46~t:12",
+                "name": "Clippers",
+                "display_name": "LA Clippers",
+                "logo_path": "./resources/icons/NBA/la-clippers.svg"
+            },
+            "los-angeles-lakers": {
+                "number": "13",
+                "uid": "s:40~l:46~t:13",
+                "name": "Lakers",
+                "display_name": "Los Angeles Lakers",
+                "logo_path": "./resources/icons/NBA/los-angeles-lakers.svg"
+            },
+            "memphis-grizzlies": {
+                "number": "29",
+                "uid": "s:40~l:46~t:29",
+                "name": "Grizzlies",
+                "display_name": "Memphis Grizzlies",
+                "logo_path": "./resources/icons/NBA/memphis-grizzlies.svg"
+            },
+            "miami-heat": {
+                "number": "14",
+                "uid": "s:40~l:46~t:14",
+                "name": "Heat",
+                "display_name": "Miami Heat",
+                "logo_path": "./resources/icons/NBA/miami-heat.svg"
+            },
+            "milwaukee-bucks": {
+                "number": "15",
+                "uid": "s:40~l:46~t:15",
+                "name": "Bucks",
+                "display_name": "Milwaukee Bucks",
+                "logo_path": "./resources/icons/NBA/milwaukee-bucks.svg"
+            },
+            "minnesota-timberwolves": {
+                "number": "16",
+                "uid": "s:40~l:46~t:16",
+                "name": "Timberwolves",
+                "display_name": "Minnesota Timberwolves",
+                "logo_path": "./resources/icons/NBA/minnesota-timberwolves.svg"
+            },
+            "new-orleans-pelicans": {
+                "number": "3",
+                "uid": "s:40~l:46~t:3",
+                "name": "Pelicans",
+                "display_name": "New Orleans Pelicans",
+                "logo_path": "./resources/icons/NBA/new-orleans-pelicans.svg"
+            },
+            "new-york-knicks": {
+                "number": "18",
+                "uid": "s:40~l:46~t:18",
+                "name": "Knicks",
+                "display_name": "New York Knicks",
+                "logo_path": "./resources/icons/NBA/new-york-knicks.svg"
+            },
+            "oklahoma-city-thunder": {
+                "number": "25",
+                "uid": "s:40~l:46~t:25",
+                "name": "Thunder",
+                "display_name": "Oklahoma City Thunder",
+                "logo_path": "./resources/icons/NBA/oklahoma-city-thunder.svg"
+            },
+            "orlando-magic": {
+                "number": "19",
+                "uid": "s:40~l:46~t:19",
+                "name": "Magic",
+                "display_name": "Orlando Magic",
+                "logo_path": "./resources/icons/NBA/orlando-magic.svg"
+            },
+            "philadelphia-76ers": {
+                "number": "20",
+                "uid": "s:40~l:46~t:20",
+                "name": "76ers",
+                "display_name": "Philadelphia 76ers",
+                "logo_path": "./resources/icons/NBA/philadelphia-76ers.svg"
+            },
+            "phoenix-suns": {
+                "number": "21",
+                "uid": "s:40~l:46~t:21",
+                "name": "Suns",
+                "display_name": "Phoenix Suns",
+                "logo_path": "./resources/icons/NBA/phoenix-suns.svg"
+            },
+            "portland-trail-blazers": {
+                "number": "22",
+                "uid": "s:40~l:46~t:22",
+                "name": "Trail Blazers",
+                "display_name": "Portland Trail Blazers",
+                "logo_path": "./resources/icons/NBA/portland-trail-blazers.svg"
+            },
+            "sacramento-kings": {
+                "number": "23",
+                "uid": "s:40~l:46~t:23",
+                "name": "Kings",
+                "display_name": "Sacramento Kings",
+                "logo_path": "./resources/icons/NBA/sacramento-kings.svg"
+            },
+            "san-antonio-spurs": {
+                "number": "24",
+                "uid": "s:40~l:46~t:24",
+                "name": "Spurs",
+                "display_name": "San Antonio Spurs",
+                "logo_path": "./resources/icons/NBA/san-antonio-spurs.svg"
+            },
+            "toronto-raptors": {
+                "number": "28",
+                "uid": "s:40~l:46~t:28",
+                "name": "Raptors",
+                "display_name": "Toronto Raptors",
+                "logo_path": "./resources/icons/NBA/toronto-raptors.svg"
+            },
+            "utah-jazz": {
+                "number": "26",
+                "uid": "s:40~l:46~t:26",
+                "name": "Jazz",
+                "display_name": "Utah Jazz",
+                "logo_path": "./resources/icons/NBA/utah-jazz.svg"
+            },
+            "washington-wizards": {
+                "number": "27",
+                "uid": "s:40~l:46~t:27",
+                "name": "Wizards",
+                "display_name": "Washington Wizards",
+                "logo_path": "./resources/icons/NBA/washington-wizards.svg"
+            }
+        }
+    },
+    "WNBA": {
+        "display_name": "Women's National Basketball Association",
+        "teams_url": "http://site.api.espn.com/apis/site/v2/sports/basketball/wnba/teams",
+        "scoreboard_url": "http://site.api.espn.com/apis/site/v2/sports/basketball/wnba/scoreboard",
+        "teams": {
+            "atlanta-dream": {
+                "number": "20",
+                "uid": "s:40~l:59~t:20",
+                "name": "Dream",
+                "display_name": "Atlanta Dream",
+                "logo_path": "./resources/icons/WNBA/atlanta-dream.svg"
+            },
+            "chicago-sky": {
+                "number": "19",
+                "uid": "s:40~l:59~t:19",
+                "name": "Sky",
+                "display_name": "Chicago Sky",
+                "logo_path": "./resources/icons/WNBA/chicago-sky.svg"
+            },
+            "connecticut-sun": {
+                "number": "18",
+                "uid": "s:40~l:59~t:18",
+                "name": "Sun",
+                "display_name": "Connecticut Sun",
+                "logo_path": "./resources/icons/WNBA/connecticut-sun.svg"
+            },
+            "dallas-wings": {
+                "number": "3",
+                "uid": "s:40~l:59~t:3",
+                "name": "Wings",
+                "display_name": "Dallas Wings",
+                "logo_path": "./resources/icons/WNBA/dallas-wings.svg"
+            },
+            "golden-state-valkyries": {
+                "number": "129689",
+                "uid": "s:40~l:59~t:129689",
+                "name": "Valkyries",
+                "display_name": "Golden State Valkyries",
+                "logo_path": "./resources/icons/WNBA/golden-state-valkyries.svg"
+            },
+            "indiana-fever": {
+                "number": "5",
+                "uid": "s:40~l:59~t:5",
+                "name": "Fever",
+                "display_name": "Indiana Fever",
+                "logo_path": "./resources/icons/WNBA/indiana-fever.svg"
+            },
+            "las-vegas-aces": {
+                "number": "17",
+                "uid": "s:40~l:59~t:17",
+                "name": "Aces",
+                "display_name": "Las Vegas Aces",
+                "logo_path": "./resources/icons/WNBA/las-vegas-aces.svg"
+            },
+            "los-angeles-sparks": {
+                "number": "6",
+                "uid": "s:40~l:59~t:6",
+                "name": "Sparks",
+                "display_name": "Los Angeles Sparks",
+                "logo_path": "./resources/icons/WNBA/los-angeles-sparks.svg"
+            },
+            "minnesota-lynx": {
+                "number": "8",
+                "uid": "s:40~l:59~t:8",
+                "name": "Lynx",
+                "display_name": "Minnesota Lynx",
+                "logo_path": "./resources/icons/WNBA/minnesota-lynx.svg"
+            },
+            "new-york-liberty": {
+                "number": "9",
+                "uid": "s:40~l:59~t:9",
+                "name": "Liberty",
+                "display_name": "New York Liberty",
+                "logo_path": "./resources/icons/WNBA/new-york-liberty.svg"
+            },
+            "phoenix-mercury": {
+                "number": "11",
+                "uid": "s:40~l:59~t:11",
+                "name": "Mercury",
+                "display_name": "Phoenix Mercury",
+                "logo_path": "./resources/icons/WNBA/phoenix-mercury.svg"
+            },
+            "seattle-storm": {
+                "number": "14",
+                "uid": "s:40~l:59~t:14",
+                "name": "Storm",
+                "display_name": "Seattle Storm",
+                "logo_path": "./resources/icons/WNBA/seattle-storm.svg"
+            },
+            "washington-mystics": {
+                "number": "16",
+                "uid": "s:40~l:59~t:16",
+                "name": "Mystics",
+                "display_name": "Washington Mystics",
+                "logo_path": "./resources/icons/WNBA/washington-mystics.svg"
+            }
+        }
+    },
+    "NCAAW": {
+        "display_name": "NCAA Women's Basketball",
+        "teams_url": "http://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/teams",
+        "scoreboard_url": "http://site.api.espn.com/apis/site/v2/sports/basketball/womens-college-basketball/scoreboard",
+        "teams": {
+            "american-university-eagles": {
+                "number": "44",
+                "uid": "s:40~l:54~t:44",
+                "name": "Eagles",
+                "display_name": "American University Eagles",
+                "logo_path": "./resources/icons/NCAAW/american-university-eagles.svg"
+            },
+            "arizona-state-sun-devils": {
+                "number": "9",
+                "uid": "s:40~l:54~t:9",
+                "name": "Sun Devils",
+                "display_name": "Arizona State Sun Devils",
+                "logo_path": "./resources/icons/NCAAW/arizona-state-sun-devils.svg"
+            },
+            "arizona-wildcats": {
+                "number": "12",
+                "uid": "s:40~l:54~t:12",
+                "name": "Wildcats",
+                "display_name": "Arizona Wildcats",
+                "logo_path": "./resources/icons/NCAAW/arizona-wildcats.svg"
+            },
+            "arkansas-razorbacks": {
+                "number": "8",
+                "uid": "s:40~l:54~t:8",
+                "name": "Razorbacks",
+                "display_name": "Arkansas Razorbacks",
+                "logo_path": "./resources/icons/NCAAW/arkansas-razorbacks.svg"
+            },
+            "auburn-tigers": {
+                "number": "2",
+                "uid": "s:40~l:54~t:2",
+                "name": "Tigers",
+                "display_name": "Auburn Tigers",
+                "logo_path": "./resources/icons/NCAAW/auburn-tigers.svg"
+            },
+            "bellarmine-knights": {
+                "number": "91",
+                "uid": "s:40~l:54~t:91",
+                "name": "Knights",
+                "display_name": "Bellarmine Knights",
+                "logo_path": "./resources/icons/NCAAW/bellarmine-knights.svg"
+            },
+            "boise-state-broncos": {
+                "number": "68",
+                "uid": "s:40~l:54~t:68",
+                "name": "Broncos",
+                "display_name": "Boise State Broncos",
+                "logo_path": "./resources/icons/NCAAW/boise-state-broncos.svg"
+            },
+            "bradley-braves": {
+                "number": "71",
+                "uid": "s:40~l:54~t:71",
+                "name": "Braves",
+                "display_name": "Bradley Braves",
+                "logo_path": "./resources/icons/NCAAW/bradley-braves.svg"
+            },
+            "cal-poly-mustangs": {
+                "number": "13",
+                "uid": "s:40~l:54~t:13",
+                "name": "Mustangs",
+                "display_name": "Cal Poly Mustangs",
+                "logo_path": "./resources/icons/NCAAW/cal-poly-mustangs.svg"
+            },
+            "california-golden-bears": {
+                "number": "25",
+                "uid": "s:40~l:54~t:25",
+                "name": "Golden Bears",
+                "display_name": "California Golden Bears",
+                "logo_path": "./resources/icons/NCAAW/california-golden-bears.svg"
+            },
+            "colorado-buffaloes": {
+                "number": "38",
+                "uid": "s:40~l:54~t:38",
+                "name": "Buffaloes",
+                "display_name": "Colorado Buffaloes",
+                "logo_path": "./resources/icons/NCAAW/colorado-buffaloes.svg"
+            },
+            "colorado-state-rams": {
+                "number": "36",
+                "uid": "s:40~l:54~t:36",
+                "name": "Rams",
+                "display_name": "Colorado State Rams",
+                "logo_path": "./resources/icons/NCAAW/colorado-state-rams.svg"
+            },
+            "delaware-blue-hens": {
+                "number": "48",
+                "uid": "s:40~l:54~t:48",
+                "name": "Blue Hens",
+                "display_name": "Delaware Blue Hens",
+                "logo_path": "./resources/icons/NCAAW/delaware-blue-hens.svg"
+            },
+            "florida-am-rattlers": {
+                "number": "50",
+                "uid": "s:40~l:54~t:50",
+                "name": "Rattlers",
+                "display_name": "Florida A&M Rattlers",
+                "logo_path": "./resources/icons/NCAAW/florida-am-rattlers.svg"
+            },
+            "florida-gators": {
+                "number": "57",
+                "uid": "s:40~l:54~t:57",
+                "name": "Gators",
+                "display_name": "Florida Gators",
+                "logo_path": "./resources/icons/NCAAW/florida-gators.svg"
+            },
+            "florida-state-seminoles": {
+                "number": "52",
+                "uid": "s:40~l:54~t:52",
+                "name": "Seminoles",
+                "display_name": "Florida State Seminoles",
+                "logo_path": "./resources/icons/NCAAW/florida-state-seminoles.svg"
+            },
+            "george-washington-revolutionaries": {
+                "number": "45",
+                "uid": "s:40~l:54~t:45",
+                "name": "Revolutionaries",
+                "display_name": "George Washington Revolutionaries",
+                "logo_path": "./resources/icons/NCAAW/george-washington-revolutionaries.svg"
+            },
+            "georgetown-hoyas": {
+                "number": "46",
+                "uid": "s:40~l:54~t:46",
+                "name": "Hoyas",
+                "display_name": "Georgetown Hoyas",
+                "logo_path": "./resources/icons/NCAAW/georgetown-hoyas.svg"
+            },
+            "georgia-lady-bulldogs": {
+                "number": "61",
+                "uid": "s:40~l:54~t:61",
+                "name": "Lady Bulldogs",
+                "display_name": "Georgia Lady Bulldogs",
+                "logo_path": "./resources/icons/NCAAW/georgia-lady-bulldogs.svg"
+            },
+            "georgia-tech-yellow-jackets": {
+                "number": "59",
+                "uid": "s:40~l:54~t:59",
+                "name": "Yellow Jackets",
+                "display_name": "Georgia Tech Yellow Jackets",
+                "logo_path": "./resources/icons/NCAAW/georgia-tech-yellow-jackets.svg"
+            },
+            "hawaii-rainbow-wahine": {
+                "number": "62",
+                "uid": "s:40~l:54~t:62",
+                "name": "Rainbow Wahine",
+                "display_name": "Hawai'i Rainbow Wahine",
+                "logo_path": "./resources/icons/NCAAW/hawaii-rainbow-wahine.svg"
+            },
+            "howard-bison": {
+                "number": "47",
+                "uid": "s:40~l:54~t:47",
+                "name": "Bison",
+                "display_name": "Howard Bison",
+                "logo_path": "./resources/icons/NCAAW/howard-bison.svg"
+            },
+            "iu-indianapolis-jaguars": {
+                "number": "85",
+                "uid": "s:40~l:54~t:85",
+                "name": "Jaguars",
+                "display_name": "IU Indianapolis Jaguars",
+                "logo_path": "./resources/icons/NCAAW/iu-indianapolis-jaguars.svg"
+            },
+            "idaho-vandals": {
+                "number": "70",
+                "uid": "s:40~l:54~t:70",
+                "name": "Vandals",
+                "display_name": "Idaho Vandals",
+                "logo_path": "./resources/icons/NCAAW/idaho-vandals.svg"
+            },
+            "indiana-hoosiers": {
+                "number": "84",
+                "uid": "s:40~l:54~t:84",
+                "name": "Hoosiers",
+                "display_name": "Indiana Hoosiers",
+                "logo_path": "./resources/icons/NCAAW/indiana-hoosiers.svg"
+            },
+            "iowa-state-cyclones": {
+                "number": "66",
+                "uid": "s:40~l:54~t:66",
+                "name": "Cyclones",
+                "display_name": "Iowa State Cyclones",
+                "logo_path": "./resources/icons/NCAAW/iowa-state-cyclones.svg"
+            },
+            "jacksonville-state-gamecocks": {
+                "number": "55",
+                "uid": "s:40~l:54~t:55",
+                "name": "Gamecocks",
+                "display_name": "Jacksonville State Gamecocks",
+                "logo_path": "./resources/icons/NCAAW/jacksonville-state-gamecocks.svg"
+            },
+            "kentucky-wildcats": {
+                "number": "96",
+                "uid": "s:40~l:54~t:96",
+                "name": "Wildcats",
+                "display_name": "Kentucky Wildcats",
+                "logo_path": "./resources/icons/NCAAW/kentucky-wildcats.svg"
+            },
+            "louisville-cardinals": {
+                "number": "97",
+                "uid": "s:40~l:54~t:97",
+                "name": "Cardinals",
+                "display_name": "Louisville Cardinals",
+                "logo_path": "./resources/icons/NCAAW/louisville-cardinals.svg"
+            },
+            "murray-state-racers": {
+                "number": "93",
+                "uid": "s:40~l:54~t:93",
+                "name": "Racers",
+                "display_name": "Murray State Racers",
+                "logo_path": "./resources/icons/NCAAW/murray-state-racers.svg"
+            },
+            "northern-kentucky-norse": {
+                "number": "94",
+                "uid": "s:40~l:54~t:94",
+                "name": "Norse",
+                "display_name": "Northern Kentucky Norse",
+                "logo_path": "./resources/icons/NCAAW/northern-kentucky-norse.svg"
+            },
+            "northwestern-wildcats": {
+                "number": "77",
+                "uid": "s:40~l:54~t:77",
+                "name": "Wildcats",
+                "display_name": "Northwestern Wildcats",
+                "logo_path": "./resources/icons/NCAAW/northwestern-wildcats.svg"
+            },
+            "notre-dame-fighting-irish": {
+                "number": "87",
+                "uid": "s:40~l:54~t:87",
+                "name": "Fighting Irish",
+                "display_name": "Notre Dame Fighting Irish",
+                "logo_path": "./resources/icons/NCAAW/notre-dame-fighting-irish.svg"
+            },
+            "sacramento-state-hornets": {
+                "number": "16",
+                "uid": "s:40~l:54~t:16",
+                "name": "Hornets",
+                "display_name": "Sacramento State Hornets",
+                "logo_path": "./resources/icons/NCAAW/sacramento-state-hornets.svg"
+            },
+            "san-diego-state-aztecs": {
+                "number": "21",
+                "uid": "s:40~l:54~t:21",
+                "name": "Aztecs",
+                "display_name": "San Diego State Aztecs",
+                "logo_path": "./resources/icons/NCAAW/san-diego-state-aztecs.svg"
+            },
+            "san-jose-state-spartans": {
+                "number": "23",
+                "uid": "s:40~l:54~t:23",
+                "name": "Spartans",
+                "display_name": "San Jos\u00e9 State Spartans",
+                "logo_path": "./resources/icons/NCAAW/san-jose-state-spartans.svg"
+            },
+            "south-alabama-jaguars": {
+                "number": "6",
+                "uid": "s:40~l:54~t:6",
+                "name": "Jaguars",
+                "display_name": "South Alabama Jaguars",
+                "logo_path": "./resources/icons/NCAAW/south-alabama-jaguars.svg"
+            },
+            "south-florida-bulls": {
+                "number": "58",
+                "uid": "s:40~l:54~t:58",
+                "name": "Bulls",
+                "display_name": "South Florida Bulls",
+                "logo_path": "./resources/icons/NCAAW/south-florida-bulls.svg"
+            },
+            "southern-illinois-salukis": {
+                "number": "79",
+                "uid": "s:40~l:54~t:79",
+                "name": "Salukis",
+                "display_name": "Southern Illinois Salukis",
+                "logo_path": "./resources/icons/NCAAW/southern-illinois-salukis.svg"
+            },
+            "southern-indiana-screaming-eagles": {
+                "number": "88",
+                "uid": "s:40~l:54~t:88",
+                "name": "Screaming Eagles",
+                "display_name": "Southern Indiana Screaming Eagles",
+                "logo_path": "./resources/icons/NCAAW/southern-indiana-screaming-eagles.svg"
+            },
+            "stanford-cardinal": {
+                "number": "24",
+                "uid": "s:40~l:54~t:24",
+                "name": "Cardinal",
+                "display_name": "Stanford Cardinal",
+                "logo_path": "./resources/icons/NCAAW/stanford-cardinal.svg"
+            },
+            "stetson-hatters": {
+                "number": "56",
+                "uid": "s:40~l:54~t:56",
+                "name": "Hatters",
+                "display_name": "Stetson Hatters",
+                "logo_path": "./resources/icons/NCAAW/stetson-hatters.svg"
+            },
+            "uab-blazers": {
+                "number": "5",
+                "uid": "s:40~l:54~t:5",
+                "name": "Blazers",
+                "display_name": "UAB Blazers",
+                "logo_path": "./resources/icons/NCAAW/uab-blazers.svg"
+            },
+            "uc-riverside-highlanders": {
+                "number": "27",
+                "uid": "s:40~l:54~t:27",
+                "name": "Highlanders",
+                "display_name": "UC Riverside Highlanders",
+                "logo_path": "./resources/icons/NCAAW/uc-riverside-highlanders.svg"
+            },
+            "uc-san-diego-tritons": {
+                "number": "28",
+                "uid": "s:40~l:54~t:28",
+                "name": "Tritons",
+                "display_name": "UC San Diego Tritons",
+                "logo_path": "./resources/icons/NCAAW/uc-san-diego-tritons.svg"
+            },
+            "ucla-bruins": {
+                "number": "26",
+                "uid": "s:40~l:54~t:26",
+                "name": "Bruins",
+                "display_name": "UCLA Bruins",
+                "logo_path": "./resources/icons/NCAAW/ucla-bruins.svg"
+            },
+            "uconn-huskies": {
+                "number": "41",
+                "uid": "s:40~l:54~t:41",
+                "name": "Huskies",
+                "display_name": "UConn Huskies",
+                "logo_path": "./resources/icons/NCAAW/uconn-huskies.svg"
+            },
+            "uic-flames": {
+                "number": "82",
+                "uid": "s:40~l:54~t:82",
+                "name": "Flames",
+                "display_name": "UIC Flames",
+                "logo_path": "./resources/icons/NCAAW/uic-flames.svg"
+            },
+            "usc-trojans": {
+                "number": "30",
+                "uid": "s:40~l:54~t:30",
+                "name": "Trojans",
+                "display_name": "USC Trojans",
+                "logo_path": "./resources/icons/NCAAW/usc-trojans.svg"
+            },
+            "yale-bulldogs": {
+                "number": "43",
+                "uid": "s:40~l:54~t:43",
+                "name": "Bulldogs",
+                "display_name": "Yale Bulldogs",
+                "logo_path": "./resources/icons/NCAAW/yale-bulldogs.svg"
+            }
+        }
+    }
+}

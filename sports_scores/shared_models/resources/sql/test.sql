@@ -1,0 +1,2 @@
+/*ALTER TABLE events
+ALTER COLUMN season DROP NOT NULL;*/

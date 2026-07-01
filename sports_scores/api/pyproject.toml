@@ -1,0 +1,37 @@
+[build-system]
+requires = ["setuptools >= 77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sport-scores-api"
+description = "Service to get scores for sports events"
+version = "0.0.1"
+
+requires-python = ">=3.13"
+dependencies = [
+    "uvicorn[standard]",
+    "fastapi",
+    "pydantic", 
+    "pydantic-settings",
+    "gunicorn",
+    "requests",
+    "sqlalchemy"
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest", 
+    "pytest-mock", 
+    "requests", 
+    "pytest-asyncio", 
+    "httpx",
+    "pytest-cov",
+    "httpx2"
+]
+
+[tool.setuptools]
+py-modules = ["config", "main"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src", "src.*"]

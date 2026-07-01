@@ -1,0 +1,17 @@
+apiVersion: v2
+name: sports-scores-job
+description: A Helm chart for the Sports Scores batch job that publishes data to TRMNL
+type: application
+version: 0.1.0
+appVersion: "0.0.1"
+
+keywords:
+  - sports
+  - scores
+  - trmnl
+  - cronjob
+
+maintainers:
+  - name: agbs2k8
+
+home: https://github.com/agbs2k8/local-server/tree/main/sports_scores/job

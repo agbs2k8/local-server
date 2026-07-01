@@ -1,0 +1,57 @@
+# Default values for sports-scores-job
+
+image:
+  repository: sports-scores-job
+  pullPolicy: IfNotPresent
+  tag: "0.0.1"
+
+cronjob:
+  schedule: "0 */3 * * *"
+  timeZone: "America/Chicago"
+  concurrencyPolicy: Forbid
+  successfulJobsHistoryLimit: 3
+  failedJobsHistoryLimit: 3
+  restartPolicy: OnFailure
+  backoffLimit: 2
+  activeDeadlineSeconds: 1800
+
+config:
+  APP_NAME: "sports-scores-job"
+  LOG_LEVEL: "INFO"
+  DATABASE_HOST: "postgres"
+  DATABASE_PORT: "5432"
+  DATABASE_NAME: "sportscores"
+  PGUSER: "sportadmin"
+
+secrets:
+  PGPASSWORD: ""
+  WEBHOOK_URL: ""
+
+resources:
+  limits:
+    cpu: 300m
+    memory: 384Mi
+  requests:
+    cpu: 100m
+    memory: 128Mi
+
+securityContext:
+  runAsNonRoot: true
+  runAsUser: 1000
+  runAsGroup: 1000
+  fsGroup: 1000
+
+nodeSelector: {}
+tolerations: []
+affinity: {}
+
+serviceAccount:
+  create: true
+  annotations: {}
+  name: ""
+
+podAnnotations: {}
+podLabels: {}
+
+nameOverride: ""
+fullnameOverride: ""

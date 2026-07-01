@@ -1,0 +1,1 @@
+Files retrieved from the ESPN API, resized, converted to B&W and then to SVG

@@ -1,0 +1,19 @@
+{
+    "last": {
+        "0": {
+            "date": "2026-07-01",
+            "name": "Minnesota Twins at Houston Astros",
+            "score": "6-4"
+        }
+    },
+    "next": {
+        "0": {
+            "date": "2026-07-03",
+            "name": "Minnesota Lynx at New York Liberty"
+        },
+        "1": {
+            "date": "2026-09-13",
+            "name": "Green Bay Packers at Minnesota Vikings"
+        }
+    }
+}
