@@ -1,0 +1,17 @@
+apiVersion: v2
+name: sports-scores-api
+description: A Helm chart for the Sports Scores API service
+type: application
+version: 0.1.0
+appVersion: "0.0.1"
+
+keywords:
+  - sports
+  - scores
+  - api
+  - fastapi
+
+maintainers:
+  - name: agbs2k8
+
+home: https://github.com/agbs2k8/local-server/tree/main/sports_scores/api

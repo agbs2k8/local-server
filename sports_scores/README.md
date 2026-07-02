@@ -19,6 +19,23 @@ docker run --rm -p 8000:8000 --env-file api/.env.example agbs2k8/sports-scores:l
 
 The container now installs both the API service and [sports_scores/shared_models](/Users/ajwilson/GitRepos/local-server/sports_scores/shared_models) as Python distributions during the build, so runtime imports no longer depend on setting `PYTHONPATH`.
 
+### API Kubernetes deployment
+
+The API service includes a Helm chart at [sports_scores/api/helm/sports-scores-api](/Users/ajwilson/GitRepos/local-server/sports_scores/api/helm/sports-scores-api) and a deploy helper at [sports_scores/api/deploy.sh](/Users/ajwilson/GitRepos/local-server/sports_scores/api/deploy.sh).
+
+It deploys as a `Deployment` plus `Service`, with the default NodePort mapping:
+
+```text
+30081 -> 8000
+```
+
+Deploy it to the local k3s cluster with:
+
+```sh
+cd /Users/ajwilson/GitRepos/local-server/sports_scores/api
+./deploy.sh
+```
+
 ### Job application
 
 Build the job image from the [sports_scores](#) repository root so Docker can include the sibling shared models package.

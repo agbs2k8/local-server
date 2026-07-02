@@ -17,6 +17,8 @@ RUN pip install --no-cache-dir \
     --trusted-host pypi.python.org \
     --trusted-host files.pythonhosted.org \
     setuptools \
+    requests \
+    "psycopg[binary]" \
     /build/shared_models
 
 COPY job /app/job
