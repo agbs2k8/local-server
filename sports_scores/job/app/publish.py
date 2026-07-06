@@ -72,7 +72,7 @@ def process_row(row:tuple):
         _last = {
             "date":utc_to_local_string(row[14]),
             "name":row[15],
-            "score": f"{row[21]}-{row[22]}",
+            "score": f"{row[22]}-{row[21]}",
         }
     else:
         _last = None
