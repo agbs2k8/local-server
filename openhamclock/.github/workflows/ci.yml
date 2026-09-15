@@ -1,0 +1,127 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop, Staging]
+  pull_request:
+    branches: [main, Staging]
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  format:
+    if: github.repository == 'accius/openhamclock'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Check formatting
+        run: npm run format:check
+
+  check-json-keys:
+    if: github.repository == 'accius/openhamclock'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Use Node.js 22.x
+        uses: actions/setup-node@v6
+        with:
+          node-version: 22.x
+
+      - name: Install dependencies
+        run: npm install jsonc-parser
+
+      - name: Check key order in src/lang/*.json files
+        run: npm run lang:check
+
+  test:
+    if: github.repository == 'accius/openhamclock'
+    runs-on: ubuntu-latest
+    needs: format
+
+    strategy:
+      matrix:
+        node-version: [20.x, 22.x]
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v6
+        with:
+          node-version: ${{ matrix.node-version }}
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run unit tests
+        run: npx vitest run
+
+      - name: Build frontend
+        run: npm run build
+
+      - name: Start server and test health endpoint
+        run: |
+          node server.js &
+          SERVER_PID=$!
+
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3000/api/health > /dev/null 2>&1; then
+              echo "✓ Health check passed on :3000 attempt $i"
+              kill $SERVER_PID 2>/dev/null || true
+              exit 0
+            fi
+            if curl -sf http://localhost:3001/api/health > /dev/null 2>&1; then
+              echo "✓ Health check passed on :3001 attempt $i"
+              kill $SERVER_PID 2>/dev/null || true
+              exit 0
+            fi
+            sleep 1
+          done
+
+          echo "✗ Health check failed after 30 attempts (tried :3000 and :3001)"
+          kill $SERVER_PID 2>/dev/null || true
+          exit 1
+
+  docker:
+    if: github.repository == 'accius/openhamclock' && github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs: test
+
+    steps:
+      - uses: actions/checkout@v6
+
+      - name: Build Docker image
+        run: docker build -t openhamclock:test .
+      # Force server port to 3000 for CI health check consistency
+      - name: Test Docker container
+        run: |
+          docker run -d -p 3000:3000 --name ohc-test openhamclock:test
+
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3000/api/health > /dev/null 2>&1; then
+              echo "✓ Docker health check passed on attempt $i"
+              docker stop ohc-test
+              exit 0
+            fi
+            sleep 1
+          done
+
+          echo "✗ Docker health check failed after 30 attempts"
+          docker logs ohc-test
+          docker stop ohc-test
+          exit 1

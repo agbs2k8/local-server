@@ -1,0 +1,1769 @@
+@import './themes.css';
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Accessibility: visible focus indicator for keyboard users (#997). Uses
+   :focus-visible so mouse clicks don't draw the ring — only keyboard
+   navigation does. The !important is load-bearing: a dozen components
+   suppress the default outline via inline style={{ outline: 'none' }},
+   and inline styles beat any stylesheet selector except an !important
+   one — without it, keyboard users get no ring exactly there. */
+:focus-visible {
+  outline: 2px solid var(--accent-cyan, #00d4ff) !important;
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Accessibility: visually-hidden utility (#1001). Hides content from
+   sighted users but keeps it in the accessibility tree so screen readers
+   announce unit-of-measure tags ("megahertz", "minutes ago") that the
+   compact visual UI abbreviates or omits. Standard clip-path pattern,
+   safer than display:none which removes from the tree entirely. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+body {
+  font-family: 'Space Grotesk', sans-serif;
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition:
+    background 0.3s,
+    color 0.3s;
+}
+
+/* Legacy theme uses monospace font */
+[data-theme='legacy'] body,
+[data-theme='legacy'] * {
+  font-family: var(--font-mono) !important;
+}
+
+/* Classic theme uses system fonts */
+[data-theme='retro'] body,
+[data-theme='retro'] * {
+  font-family: 'Tahoma', 'MS Sans Serif', 'Arial', sans-serif !important;
+}
+
+/* Subtle scanline effect */
+body::before {
+  content: '';
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 2px,
+    rgba(0, 0, 0, var(--scanline-opacity)) 4px
+  );
+  pointer-events: none;
+  z-index: 9999;
+}
+
+/* ============================================
+   CLASSIC THEME - 90s WINDOWS STYLING
+   ============================================ */
+
+/* 3D Beveled border effect for classic theme */
+[data-theme='retro'] .panel {
+  background: #c0c0c0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset -1px -1px 0 #404040,
+    inset 1px 1px 0 #ffffff,
+    inset -2px -2px 0 #808080,
+    inset 2px 2px 0 #dfdfdf !important;
+  backdrop-filter: none !important;
+}
+
+/* Classic window title bar style */
+[data-theme='retro'] .panel-header,
+[data-theme='retro'] .panel > div:first-child {
+  background: linear-gradient(90deg, #000080, #1084d0) !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  padding: 2px 4px !important;
+  margin: -10px -10px 8px -10px !important;
+  font-size: 12px !important;
+}
+
+/* Panels with padding:0 on the outer container (flush-header layout) need the
+   title bar without the -10px margin compensation. Same specificity as the rule
+   above but placed later in the cascade so it wins for .meshcom-header. */
+[data-theme='retro'] .panel > div.meshcom-header {
+  background: linear-gradient(90deg, #000080, #1084d0) !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  padding: 4px 8px !important;
+  margin: 0 !important;
+  font-size: 12px !important;
+}
+
+/* Force all child elements (spans) inside the header to white.
+   Specificity [0,3,1] beats the retro button rule [0,1,1] so this wins
+   even when both declarations carry !important. */
+[data-theme='retro'] .panel > div.meshcom-header * {
+  color: #ffffff !important;
+}
+
+/* Buttons inside the header keep retro black text (raised 3D button look).
+   Both selectors beat the wildcard rule [0,3,1]: button at [0,3,2],
+   button * at [0,3,2] (universal selector adds 0 specificity but the
+   extra element type on button already wins). */
+[data-theme='retro'] .panel > div.meshcom-header button,
+[data-theme='retro'] .panel > div.meshcom-header button * {
+  color: #000000 !important;
+}
+
+/* Classic buttons */
+[data-theme='retro'] button,
+[data-theme='retro'] .map-style-btn {
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset -1px -1px 0 #404040,
+    inset 1px 1px 0 #ffffff,
+    inset -2px -2px 0 #808080,
+    inset 2px 2px 0 #dfdfdf !important;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif !important;
+  font-size: 11px !important;
+  padding: 4px 12px !important;
+}
+
+[data-theme='retro'] button:hover,
+[data-theme='retro'] .map-style-btn:hover {
+  background: #dfdfdf !important;
+}
+
+[data-theme='retro'] button:active,
+[data-theme='retro'] .map-style-btn:active,
+[data-theme='retro'] .map-style-btn.active {
+  box-shadow:
+    inset 1px 1px 0 #404040,
+    inset -1px -1px 0 #ffffff,
+    inset 2px 2px 0 #808080,
+    inset -2px -2px 0 #dfdfdf !important;
+}
+
+/* Classic inputs */
+[data-theme='retro'] input,
+[data-theme='retro'] select {
+  background: #ffffff !important;
+  color: #000000 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset 1px 1px 0 #404040,
+    inset -1px -1px 0 #ffffff,
+    inset 2px 2px 0 #808080,
+    inset -2px -2px 0 #dfdfdf !important;
+  font-family: 'Tahoma', 'MS Sans Serif', sans-serif !important;
+  font-size: 11px !important;
+  padding: 2px 4px !important;
+}
+
+/* Classic scrollbars */
+[data-theme='retro'] ::-webkit-scrollbar {
+  width: 16px;
+  height: 16px;
+}
+
+[data-theme='retro'] ::-webkit-scrollbar-track {
+  background: #c0c0c0;
+  background-image:
+    linear-gradient(45deg, #808080 25%, transparent 25%), linear-gradient(-45deg, #808080 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #808080 75%), linear-gradient(-45deg, transparent 75%, #808080 75%);
+  background-size: 4px 4px;
+  background-position:
+    0 0,
+    0 2px,
+    2px -2px,
+    -2px 0px;
+}
+
+[data-theme='retro'] ::-webkit-scrollbar-thumb {
+  background: #c0c0c0;
+  border-radius: 0;
+  box-shadow:
+    inset -1px -1px 0 #404040,
+    inset 1px 1px 0 #ffffff,
+    inset -2px -2px 0 #808080,
+    inset 2px 2px 0 #dfdfdf;
+}
+
+[data-theme='retro'] ::-webkit-scrollbar-button {
+  background: #c0c0c0;
+  box-shadow:
+    inset -1px -1px 0 #404040,
+    inset 1px 1px 0 #ffffff;
+  width: 16px;
+  height: 16px;
+}
+
+/* Classic links */
+[data-theme='retro'] a {
+  color: #0000ff !important;
+  text-decoration: underline !important;
+}
+
+[data-theme='retro'] a:visited {
+  color: #800080 !important;
+}
+
+/* Classic header styling */
+[data-theme='retro'] [style*="gridColumn: '1 / -1'"] {
+  background: #c0c0c0 !important;
+}
+
+/* Classic text colors override */
+[data-theme='retro'] [style*='color: var(--accent-cyan)'],
+[data-theme='retro'] [style*='color: var(--accent-amber)'],
+[data-theme='retro'] [style*='color: var(--accent-green)'] {
+  color: #000080 !important;
+}
+
+/* Classic modal/dialog styling */
+[data-theme='retro'] [style*='position: fixed'][style*='background: rgba'] {
+  background: rgba(0, 128, 128, 0.9) !important;
+}
+
+/* Classic table styling for DX cluster */
+[data-theme='retro'] table,
+[data-theme='retro'] [style*='display: grid'] {
+  border-collapse: collapse;
+}
+
+[data-theme='retro'] tr:nth-child(even) {
+  background: #dfdfdf;
+}
+
+[data-theme='retro'] tr:nth-child(odd) {
+  background: #c0c0c0;
+}
+
+/* Classic Leaflet overrides */
+[data-theme='retro'] .leaflet-container {
+  background: #000080 !important;
+}
+
+[data-theme='retro'] .leaflet-control-zoom {
+  border-radius: 0 !important;
+}
+
+[data-theme='retro'] .leaflet-control-zoom a {
+  background: #c0c0c0 !important;
+  color: #000000 !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset -1px -1px 0 #404040,
+    inset 1px 1px 0 #ffffff !important;
+}
+
+[data-theme='retro'] .leaflet-popup-content-wrapper {
+  background: #c0c0c0 !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset -1px -1px 0 #404040,
+    inset 1px 1px 0 #ffffff,
+    2px 2px 4px rgba(0, 0, 0, 0.5) !important;
+}
+
+[data-theme='retro'] .leaflet-popup-tip {
+  background: #c0c0c0 !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+@keyframes dxnews-scroll {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.loading-spinner {
+  width: 14px;
+  height: 14px;
+  border: 2px solid var(--border-color);
+  border-top-color: var(--accent-amber);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  display: inline-block;
+}
+
+/* Legacy theme specific styles */
+[data-theme='legacy'] .loading-spinner {
+  border-color: var(--accent-green);
+  border-top-color: var(--accent-amber);
+}
+
+/* Classic theme uses hourglass cursor for loading */
+[data-theme='retro'] .loading-spinner {
+  border-radius: 0;
+  border-color: #000000;
+  border-top-color: #808080;
+}
+
+/* ============================================
+   LEAFLET MAP CUSTOMIZATIONS
+   ============================================ */
+.leaflet-container {
+  background: var(--bg-primary);
+  font-family: 'Space Grotesk', sans-serif;
+}
+
+.leaflet-control-zoom {
+  border: 1px solid var(--border-color) !important;
+  border-radius: 6px !important;
+  overflow: hidden;
+}
+
+.leaflet-control-zoom a {
+  background: var(--bg-secondary) !important;
+  color: var(--text-primary) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+}
+
+.leaflet-control-zoom a:hover {
+  background: var(--bg-tertiary) !important;
+  color: var(--accent-amber) !important;
+}
+
+.leaflet-control-attribution {
+  background: rgba(10, 14, 20, 0.8) !important;
+  color: var(--text-muted) !important;
+  font-size: 11px !important;
+}
+
+/* Azimuthal projection Leaflet overlay — transparent background */
+.azimuthal-leaflet-overlay .leaflet-container {
+  background: transparent !important;
+}
+.azimuthal-leaflet-overlay .leaflet-tile-pane {
+  display: none;
+}
+
+.leaflet-control-attribution a {
+  color: var(--text-secondary) !important;
+}
+
+/* ============================================
+   COUNTRY TOOLTIP STYLES
+   ============================================ */
+.country-tooltip {
+  background: rgba(10, 14, 20, 0.9) !important;
+  color: #fff !important;
+  border: 1px solid rgba(255, 255, 255, 0.3) !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  font-weight: 600 !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4) !important;
+}
+
+.country-tooltip::before {
+  border-top-color: rgba(10, 14, 20, 0.9) !important;
+}
+
+/* ============================================
+   LOCK LAYOUT PANEL
+   ============================================ */
+.panel-layout-reset-button,
+.panel-layout-lock-button {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  color: var(--text-muted);
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  padding: 3px 8px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  margin: 1em auto;
+}
+
+.panel-layout-reset-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.panel-layout-lock-button.locked {
+  color: var(--accent-amber);
+  background: rgba(255, 170, 0, 0.15);
+  border-color: var(--accent-amber);
+}
+
+/* ============================================
+   CUSTOM MARKER STYLES
+   ============================================ */
+.custom-marker {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 12px;
+  border-radius: 50%;
+  border: 2px solid white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.de-marker {
+  background: var(--accent-amber);
+  color: #000;
+  width: 32px;
+  height: 32px;
+}
+
+.dx-marker {
+  background: var(--accent-blue);
+  color: #fff;
+  width: 32px;
+  height: 32px;
+}
+
+.sun-marker-icon,
+.moon-marker-icon {
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  filter: drop-shadow(0 0 4px rgba(0, 0, 0, 0.6));
+}
+
+/* Classic theme markers - square */
+[data-theme='retro'] .custom-marker,
+[data-theme='retro'] .de-marker,
+[data-theme='retro'] .dx-marker {
+  border-radius: 0 !important;
+}
+
+/* ============================================
+   MAP STYLE SELECTOR
+   ============================================ */
+.map-style-control {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.map-style-btn {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  color: var(--text-secondary);
+  padding: 8px 12px;
+  font-family: var(--font-mono);
+  font-size: 12px;
+  cursor: pointer;
+  transition: all 0.2s;
+  border-radius: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.map-style-btn:hover {
+  background: var(--bg-tertiary);
+  color: var(--text-primary);
+  border-color: var(--accent-amber);
+}
+
+.map-style-btn.active {
+  background: var(--accent-amber);
+  color: #000;
+  border-color: var(--accent-amber);
+}
+
+/* ============================================
+   POPUP STYLING
+   ============================================ */
+.leaflet-popup-content-wrapper {
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--border-color) !important;
+  border-radius: 8px !important;
+  color: var(--text-primary) !important;
+}
+
+.leaflet-popup-tip {
+  background: var(--bg-panel) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.leaflet-popup-content {
+  font-family: var(--font-mono) !important;
+  font-size: 12px !important;
+  margin: 10px 12px !important;
+}
+
+/* ============================================
+   PANEL STYLING
+   ============================================ */
+.panel {
+  background: var(--bg-panel);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  padding: 10px;
+  backdrop-filter: blur(10px);
+}
+
+.panel-header {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--accent-cyan);
+  margin-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ============================================
+   Leaflet Control Panels
+   ============================================ */
+.panel-wrapper > div {
+  transition: all 0.3s ease;
+  background: var(--bg-panel);
+  border-radius: 5px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-primary);
+  border: 1px solid var(--border-color);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+  min-width: 200px;
+  max-width: 280px;
+}
+
+.panel-wrapper > div:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+}
+
+.panel-wrapper > div .floating-panel-header {
+  user-select: none;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  margin: 0;
+  padding: 10px;
+  font-size: 13px;
+  color: var(--accent-cyan);
+  letter-spacing: 0.5px;
+}
+
+/* minimize toggle */
+.panel-wrapper > div .floating-panel-header button {
+  color: var(--text-secondary);
+  width: 1em;
+  min-width: 1em;
+  height: 1em;
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  font-size: 1.1em;
+  line-height: 1em;
+}
+
+/* ============================================
+   DX CLUSTER MAP TOOLTIPS
+   ============================================ */
+.dx-tooltip {
+  background: rgba(20, 20, 30, 0.95) !important;
+  border: 1px solid rgba(0, 170, 255, 0.5) !important;
+  border-radius: 4px !important;
+  padding: 4px 8px !important;
+  font-family: var(--font-mono) !important;
+  font-size: 11px !important;
+  color: #00aaff !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5) !important;
+}
+
+.dx-tooltip::before {
+  border-top-color: rgba(0, 170, 255, 0.5) !important;
+}
+
+.dx-tooltip-highlighted {
+  background: rgba(68, 136, 255, 0.95) !important;
+  border: 2px solid #ffffff !important;
+  color: #ffffff !important;
+  font-weight: bold !important;
+  font-size: 13px !important;
+  box-shadow: 0 4px 16px rgba(68, 136, 255, 0.8) !important;
+}
+
+.dx-tooltip-highlighted::before {
+  border-top-color: #ffffff !important;
+}
+
+/* Classic tooltips */
+[data-theme='retro'] .dx-tooltip {
+  background: #ffffcc !important;
+  border: 1px solid #000000 !important;
+  border-radius: 0 !important;
+  color: #000000 !important;
+  box-shadow: 2px 2px 0 #000000 !important;
+}
+
+/* ============================================
+   SCROLLBAR STYLING
+   ============================================ */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-amber-dim);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+.text-amber {
+  color: var(--accent-amber);
+}
+.text-green {
+  color: var(--accent-green);
+}
+.text-red {
+  color: var(--accent-red);
+}
+.text-blue {
+  color: var(--accent-blue);
+}
+.text-cyan {
+  color: var(--accent-cyan);
+}
+.text-muted {
+  color: var(--text-muted);
+}
+.text-primary {
+  color: var(--text-primary);
+}
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+.font-mono {
+  font-family: var(--font-mono);
+}
+.font-display {
+  font-family: 'Orbitron', monospace;
+}
+
+.bg-panel {
+  background: var(--bg-panel);
+}
+.bg-primary {
+  background: var(--bg-primary);
+}
+.bg-secondary {
+  background: var(--bg-secondary);
+}
+.bg-tertiary {
+  background: var(--bg-tertiary);
+}
+
+/* Theme controls */
+#theme-selector-component .theme-select-button {
+  padding: 10px;
+  background: var(--bg-tertiary);
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  cursor: pointer;
+  font-weight: 400;
+}
+
+#theme-selector-component .theme-select-button span.icon {
+  text-shadow: 0 0 5px #000;
+}
+
+#theme-selector-component .theme-select-button.active {
+  border-color: var(--accent-amber);
+  background-color: var(--accent-amber);
+  color: #000;
+  font-weight: 600;
+}
+
+#custom-theme-editor-component {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 8px;
+}
+
+@media screen and (max-width: 768px) {
+  #custom-theme-editor-component {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media screen and (max-width: 480px) {
+  #custom-theme-editor-component {
+    grid-template-columns: 1fr;
+  }
+}
+
+#custom-theme-editor-component .custom-theme-colorpicker {
+  margin: 1em auto;
+  text-align: center;
+  width: 100%;
+}
+
+#custom-theme-editor-component .custom-theme-colorpicker .react-colorful {
+  width: 100%;
+  height: 200px;
+}
+
+#custom-theme-editor-component .custom-theme-colorpicker label {
+  margin-bottom: 8px;
+  color: var(--text-muted);
+  font-size: 11px;
+  display: block;
+}
+
+/* Hide the hue slider for variables that have color names */
+#custom-theme-editor-component .hue-locked .react-colorful__hue {
+  display: none;
+}
+
+/* ============================================
+   WSPR PLUGIN ANIMATIONS (v1.3.0)
+   ============================================ */
+
+/* Animated path pulse effect */
+@keyframes wspr-pulse {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 0.8;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.6;
+  }
+}
+
+.wspr-animated-path {
+  stroke-dasharray: 10, 5;
+  animation: wspr-pulse 3s ease-in-out infinite;
+}
+
+/* Pulsing marker animation */
+@keyframes wspr-marker-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+    opacity: 0.8;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 1;
+  }
+}
+
+.wspr-marker {
+  animation: wspr-marker-pulse 2s ease-in-out infinite;
+}
+
+/* Filter input styles */
+.wspr-filter-control select,
+.wspr-filter-control input[type='range'] {
+  transition: all 0.2s ease;
+}
+
+.wspr-filter-control select:hover,
+.wspr-filter-control select:focus {
+  border-color: #00aaff;
+  outline: none;
+}
+
+.wspr-filter-control input[type='range']::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #00aaff;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.wspr-filter-control input[type='range']::-webkit-slider-thumb:hover {
+  background: #00ddff;
+}
+
+.wspr-filter-control input[type='range']::-moz-range-thumb {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #00aaff;
+  cursor: pointer;
+  border: none;
+  transition: background 0.2s ease;
+}
+
+.wspr-filter-control input[type='range']::-moz-range-thumb:hover {
+  background: #00ddff;
+}
+
+/* Band activity chart bars animation */
+@keyframes wspr-bar-grow {
+  from {
+    width: 0%;
+  }
+  to {
+    width: var(--bar-width);
+  }
+}
+
+.wspr-chart div[style*='background: linear-gradient'] {
+  animation: wspr-bar-grow 0.5s ease-out;
+}
+
+/* Propagation score glow effect */
+@keyframes wspr-score-glow {
+  0%,
+  100% {
+    text-shadow: 0 0 5px currentColor;
+  }
+  50% {
+    text-shadow:
+      0 0 15px currentColor,
+      0 0 25px currentColor;
+  }
+}
+
+.wspr-stats div[style*='font-size: 18px'] {
+  animation: wspr-score-glow 2s ease-in-out infinite;
+}
+
+/* ============================================
+   EARTHQUAKE PLUGIN ANIMATIONS
+   ============================================ */
+
+/* New earthquake pulse animation - ring only */
+@keyframes earthquake-pulse {
+  0% {
+    transform: scale(0);
+    opacity: 1;
+  }
+  50% {
+    transform: scale(1.5);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(2.5);
+    opacity: 0;
+  }
+}
+
+/* Pulsing ring for new earthquakes */
+.earthquake-pulse-ring {
+  animation: earthquake-pulse 3s ease-out;
+}
+
+/* Flash/fade animation for new earthquakes - with shake */
+@keyframes earthquake-flash {
+  0% {
+    opacity: 0;
+    filter: brightness(3) drop-shadow(0 0 8px currentColor);
+    transform: translate(0, 0);
+  }
+  10% {
+    transform: translate(-2px, 1px) rotate(-5deg);
+  }
+  20% {
+    transform: translate(2px, -1px) rotate(5deg);
+  }
+  30% {
+    opacity: 1;
+    filter: brightness(2) drop-shadow(0 0 6px currentColor);
+    transform: translate(-1px, 2px) rotate(-3deg);
+  }
+  40% {
+    transform: translate(1px, -2px) rotate(3deg);
+  }
+  50% {
+    transform: translate(-1px, 1px) rotate(-2deg);
+  }
+  60% {
+    opacity: 1;
+    filter: brightness(1.5) drop-shadow(0 0 4px currentColor);
+    transform: translate(1px, -1px) rotate(2deg);
+  }
+  70% {
+    transform: translate(0, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(0, -1px) rotate(1deg);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) drop-shadow(0 0 0px transparent);
+    transform: translate(0, 0) rotate(0);
+  }
+}
+
+.earthquake-pulse-new {
+  animation: earthquake-flash 0.8s ease-out;
+}
+
+/* No animation for regular earthquake markers */
+.earthquake-marker {
+  /* Static, no animation */
+}
+
+/* Lightning strike animations */
+@keyframes lightning-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.9;
+  }
+  50% {
+    transform: scale(2.5);
+    opacity: 0.5;
+  }
+  100% {
+    transform: scale(4);
+    opacity: 0;
+  }
+}
+
+/* Pulsing ring for new lightning strikes */
+.lightning-pulse-ring {
+  animation: lightning-pulse 2s ease-out;
+}
+
+/* Flash animation for new lightning strikes - no transform */
+@keyframes lightning-flash {
+  0% {
+    opacity: 0;
+    filter: brightness(3) drop-shadow(0 0 10px gold);
+  }
+  20% {
+    opacity: 1;
+    filter: brightness(4) drop-shadow(0 0 12px gold);
+  }
+  50% {
+    opacity: 1;
+    filter: brightness(2.5) drop-shadow(0 0 8px gold);
+  }
+  100% {
+    opacity: 1;
+    filter: brightness(1) drop-shadow(0 0 0px transparent);
+  }
+}
+
+.lightning-strike-new {
+  animation: lightning-flash 0.8s ease-out;
+}
+
+/* No animation for regular lightning markers */
+.lightning-strike {
+  /* Static, no animation */
+}
+
+/* Lightning stats panel styling */
+.lightning-stats {
+  pointer-events: auto;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+  border: 2px solid rgba(255, 215, 0, 0.3);
+}
+
+.lightning-stats:hover {
+  border-color: rgba(255, 215, 0, 0.6);
+}
+
+/* Earthquake icon markers */
+.earthquake-icon {
+  z-index: 10000 !important;
+  pointer-events: auto;
+  /* Removed position: relative - was causing icons to appear offset from marker position */
+}
+
+.earthquake-icon div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  /* position: relative removed here too */
+  z-index: 10000 !important;
+}
+
+/* Lightning icon markers */
+.lightning-icon {
+  z-index: 10000 !important;
+  pointer-events: auto;
+  position: relative !important;
+}
+
+.lightning-icon div {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  user-select: none;
+  position: relative;
+  z-index: 10000 !important;
+}
+
+/* content spacing in panels */
+.wspr-panel-content,
+.lightning-panel-content,
+.grayline-panel-content,
+.muf-panel-content,
+.n3fjp-panel-content,
+.rbn-panel-content,
+.voacap-panel-content {
+  padding: 0 10px 10px 10px;
+}
+
+/* ============================================
+   RESPONSIVE: Phone & Small Screen Overrides
+   ============================================ */
+
+/* Tablets and small screens (under 1024px) */
+@media (max-width: 1024px) {
+  .panel {
+    padding: 6px !important;
+    border-radius: 4px !important;
+  }
+
+  .panel-header {
+    font-size: 11px !important;
+    padding: 4px 6px !important;
+  }
+}
+
+/* Phone landscape and small tablets (under 768px) */
+@media (max-width: 768px) {
+  /* Force single-column on modern layout */
+  .ohc-mobile-stack {
+    display: flex !important;
+    flex-direction: column !important;
+    grid-template-columns: unset !important;
+  }
+
+  .panel {
+    padding: 4px !important;
+    margin-bottom: 2px !important;
+    border-radius: 3px !important;
+  }
+
+  .panel-header {
+    font-size: 10px !important;
+    padding: 3px 6px !important;
+  }
+
+  /* Prevent horizontal overflow */
+  body {
+    overflow-x: hidden;
+  }
+}
+
+/* Phone portrait (under 480px) */
+@media (max-width: 480px) {
+  /* Extra compact for phones */
+  .panel {
+    padding: 3px !important;
+    font-size: 11px !important;
+  }
+
+  .panel-header {
+    font-size: 9px !important;
+  }
+
+  /* Reduce font sizes globally for very small screens */
+  body {
+    font-size: 12px;
+  }
+}
+
+/* Short screens (Pi 7" touchscreen at 480px height) */
+@media (max-height: 520px) {
+  .panel {
+    padding: 3px !important;
+  }
+
+  .panel-header {
+    padding: 2px 4px !important;
+    font-size: 10px !important;
+  }
+}
+
+/* Touch device improvements */
+@media (pointer: coarse) {
+  /* Larger tap targets for touchscreens */
+  button {
+    min-height: 36px;
+    min-width: 36px;
+  }
+
+  /* Prevent text selection on tap */
+  .panel-header {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+
+  /* Scrollbar styling for touch */
+  ::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 2px;
+  }
+}
+
+/* ============================================
+   WSPR HEATMAP CLOUD EFFECT
+   ============================================ */
+.wspr-heatmap-cloud {
+  filter: blur(25px);
+  transition: opacity 0.3s ease;
+}
+
+.wspr-heatmap-cloud:hover {
+  filter: blur(15px);
+}
+
+/* ============================================
+                  NIGHT VIEW
+   ============================================ */
+
+#night-lights-pane {
+  z-index: 650 !important;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  filter: contrast(1.2);
+  transition:
+    opacity 0.2s ease,
+    clip-path 0.5s ease-in-out;
+}
+
+.terminator-path {
+  pointer-events: none;
+  z-index: 400 !important; /* Sit behind the city lights but in front of the map */
+  filter: blur(8px); /* Smooth gradient at the day/night boundary */
+}
+
+/* Hide city lights completely in 'Countries' or high-contrast modes */
+[data-theme='retro'] #night-lights-pane {
+  display: none;
+}
+
+/* ============================================
+   EMOJI FONT FALLBACK
+   On Linux systems without a color emoji font, missing emoji glyphs
+   render as an ugly □ replacement box.  This font-family stack tells the
+   browser to prefer system color emoji fonts and, as a last resort, use
+   the generic sans-serif which at minimum renders nothing rather than □.
+
+   Real fix (recommended): sudo apt install fonts-noto-color-emoji
+   then restart your browser / reboot in kiosk mode.
+   See the FAQ in README.md for full details.
+   ============================================ */
+
+/* System color emoji stack — covers Windows (Segoe UI Emoji), macOS/iOS
+   (Apple Color Emoji), Linux with Noto (Noto Color Emoji), and Firefox's
+   bundled Twemoji (Twemoji Mozilla). */
+@supports (font-family: 'Noto Color Emoji') {
+  :root {
+    --has-emoji-font: 1;
+  }
+}
+
+/* Apply an emoji-priority font stack everywhere so the browser picks up
+   whatever color emoji font is available on this OS/distro. */
+body {
+  font-family:
+    -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Color Emoji',
+    'Segoe UI Emoji', 'Apple Color Emoji', 'Twemoji Mozilla', 'Noto Emoji', sans-serif;
+}
+
+/* For elements that use JetBrains Mono (our monospace panels), keep the
+   typeface but still pull in system emoji for any emoji codepoints. */
+code,
+pre,
+.mono,
+.dx-cluster-panel,
+.band-label,
+.callsign,
+[style*='JetBrains Mono'],
+[style*='--font-mono'],
+[style*='monospace'] {
+  font-family:
+    var(--font-mono), 'Courier New', 'Noto Color Emoji', 'Segoe UI Emoji', 'Apple Color Emoji', 'Twemoji Mozilla',
+    'Noto Emoji';
+}
+
+/* Clickable callsigns in map popups */
+[data-map-call] {
+  cursor: pointer;
+}
+[data-map-call]:hover:not([style*='color']) {
+  color: var(--accent-white);
+  font-weight: bold;
+}
+
+/* Callsign popup animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Skip navigation link ────────────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: auto;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  z-index: 100001;
+  background: var(--accent-amber, #ffb432);
+  color: #000;
+  font-weight: 700;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 0 0 4px 0;
+  text-decoration: none;
+}
+
+.skip-link:focus {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: auto;
+  height: auto;
+  overflow: visible;
+  outline: 3px solid #000;
+  outline-offset: 0;
+}
+
+/* Remove the outline suppression from WSPR filter — use :focus-visible instead */
+.wspr-filter-control select:focus {
+  outline: revert;
+}
+
+/* ── Reduced motion ──────────────────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  /* Halt the infinite DX news ticker scroll */
+  .dxnews-scroll-content {
+    animation: none !important;
+  }
+
+  /* Halt specific continuous animations */
+  .wspr-animated-path,
+  .wspr-marker,
+  .loading-spinner,
+  .earthquake-marker,
+  .lightning-strike {
+    animation: none !important;
+  }
+}
+
+/* ============================================
+   MATRIX THEME - phosphor terminal treatment
+   ============================================ */
+
+/* Everything monospace, like Legacy */
+[data-theme='matrix'] body,
+[data-theme='matrix'] * {
+  font-family: var(--font-mono) !important;
+}
+
+/* Subtle phosphor glow on text (kept faint — it's a data display) */
+[data-theme='matrix'] body {
+  text-shadow: 0 0 6px rgba(0, 255, 65, 0.25);
+}
+
+/* ============================================
+   8-BIT THEME - console chrome
+   ============================================ */
+
+/* No rounded corners anywhere — everything is a sprite */
+[data-theme='eightbit'] *,
+[data-theme='eightbit'] .panel {
+  border-radius: 0 !important;
+}
+
+/* Chunky 2px panel borders */
+[data-theme='eightbit'] .panel {
+  border-width: 2px !important;
+  backdrop-filter: none !important;
+}
+
+/* ── Matrix: CRT terminal chrome ─────────────────────────── */
+
+/* Sharp terminal rectangles with a phosphor bloom */
+[data-theme='matrix'] .panel {
+  border-radius: 0 !important;
+  box-shadow:
+    0 0 10px rgba(0, 255, 65, 0.12),
+    inset 0 0 18px rgba(0, 255, 65, 0.04) !important;
+  backdrop-filter: none !important;
+}
+
+/* Inverted selection, like a terminal cursor sweep */
+[data-theme='matrix'] ::selection {
+  background: #00ff41;
+  color: #000;
+}
+
+/* Green terminal scrollbars */
+[data-theme='matrix'] ::-webkit-scrollbar-thumb {
+  background: rgba(0, 255, 65, 0.35) !important;
+  border-radius: 0 !important;
+}
+[data-theme='matrix'] ::-webkit-scrollbar-track {
+  background: rgba(0, 40, 10, 0.6) !important;
+}
+
+/* ── 8-Bit: console dialog chrome ────────────────────────── */
+
+/* NES dialog frames: white inner border, gap, colored outer frame */
+[data-theme='eightbit'] .panel {
+  border: 2px solid #f8f8f8 !important;
+  box-shadow:
+    0 0 0 2px #0f0f23,
+    0 0 0 4px #5f5fd3 !important;
+  backdrop-filter: none !important;
+}
+
+/* Hard offset button shadows — press to "push in" */
+[data-theme='eightbit'] button {
+  border-radius: 0 !important;
+  box-shadow: 2px 2px 0 rgba(0, 0, 0, 0.7);
+}
+[data-theme='eightbit'] button:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+/* Chunky square scrollbars */
+[data-theme='eightbit'] ::-webkit-scrollbar-thumb {
+  background: #5f5fd3 !important;
+  border-radius: 0 !important;
+  border: 2px solid #0f0f23 !important;
+}
+[data-theme='eightbit'] ::-webkit-scrollbar-track {
+  background: #1a1a2e !important;
+}
+
+/* Nearest-neighbor map tiles — the world as sprites when zoomed */
+[data-theme='eightbit'] .leaflet-tile {
+  image-rendering: pixelated;
+}
+
+/* ── Steampunk: brass and rivets ─────────────────────────── */
+
+/* Lamp-lit room: a warm gaslight glow from above the workbench */
+[data-theme='steampunk'] body {
+  background: radial-gradient(1100px 700px at 50% -5%, rgba(255, 184, 70, 0.1), transparent 60%), var(--bg-primary);
+}
+
+/* Double brass frame with a lamp-lit inner shadow */
+[data-theme='steampunk'] .panel {
+  position: relative;
+  border: 1px solid #9a742e !important;
+  border-radius: 8px !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 220, 150, 0.12),
+    inset 0 0 0 1px rgba(240, 180, 41, 0.22),
+    inset 0 0 26px rgba(0, 0, 0, 0.55),
+    0 2px 8px rgba(0, 0, 0, 0.6) !important;
+}
+
+/* Corner rivets: domed, lit from the upper left */
+[data-theme='steampunk'] .panel::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 8px;
+  pointer-events: none;
+  background-image:
+    radial-gradient(circle 3.5px at 8px 8px, #f7dc94 0%, #cf9c2e 45%, #6d4f1c 78%, transparent 80%),
+    radial-gradient(circle 3.5px at calc(100% - 8px) 8px, #f7dc94 0%, #cf9c2e 45%, #6d4f1c 78%, transparent 80%),
+    radial-gradient(circle 3.5px at 8px calc(100% - 8px), #f7dc94 0%, #cf9c2e 45%, #6d4f1c 78%, transparent 80%),
+    radial-gradient(
+      circle 3.5px at calc(100% - 8px) calc(100% - 8px),
+      #f7dc94 0%,
+      #cf9c2e 45%,
+      #6d4f1c 78%,
+      transparent 80%
+    );
+  background-repeat: no-repeat;
+}
+
+/* Headers: screwed-on brass nameplates with engraved serif text.
+   Self-contained (no negative margins) for the same reason as Trek's
+   pill — panels override the base 10px padding with 8-20px. */
+[data-theme='steampunk'] .panel > div:first-child {
+  background:
+    radial-gradient(circle 2.5px at 9px 50%, #fff3cf 0%, #8a6a2f 55%, #4d3a16 75%, transparent 78%),
+    radial-gradient(circle 2.5px at calc(100% - 9px) 50%, #fff3cf 0%, #8a6a2f 55%, #4d3a16 75%, transparent 78%),
+    linear-gradient(180deg, #e8bc52 0%, #c89a35 45%, #96702a 100%) !important;
+  color: #2b1a08 !important;
+  font-family: Georgia, 'Times New Roman', serif !important;
+  font-variant: small-caps;
+  letter-spacing: 1.5px;
+  text-shadow: 0 1px 0 rgba(255, 236, 190, 0.5);
+  border: 1px solid #6d4f1c !important;
+  border-radius: 4px !important;
+  padding: 2px 10px 2px 20px !important;
+  margin: 0 0 8px 0 !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 240, 200, 0.5),
+    inset 0 -1px 0 rgba(60, 38, 10, 0.5),
+    0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+/* Victorian serif buttons */
+[data-theme='steampunk'] button {
+  font-family: Georgia, 'Times New Roman', serif !important;
+  border-radius: 4px !important;
+}
+
+/* Aged-chart map tiles — warm parchment, not washed out */
+[data-theme='steampunk'] .leaflet-tile {
+  filter: sepia(0.5) saturate(1.05) contrast(1.05) hue-rotate(-8deg);
+}
+
+/* Brass scrollbars on leather tracks */
+[data-theme='steampunk'] ::-webkit-scrollbar-thumb {
+  background: linear-gradient(#d4a017, #8a6a2f) !important;
+  border-radius: 5px !important;
+  border: 1px solid #55401a !important;
+}
+[data-theme='steampunk'] ::-webkit-scrollbar-track {
+  background: rgba(18, 11, 5, 0.8) !important;
+}
+
+/* Brass text selection */
+[data-theme='steampunk'] ::selection {
+  background: #d4a017;
+  color: #1a1208;
+}
+
+/* ══════════════════════════════════════════════════════════
+   THEME V2 — deep design language (8-Bit / Matrix / Trek)
+   These extend (and where noted, override) the earlier
+   chrome blocks above; later rules win at equal specificity.
+   ══════════════════════════════════════════════════════════ */
+
+/* ── 8-Bit v2: NES dialog graphics ───────────────────────── */
+
+/* Stepped "pixel-rounded" corners: chamfer each corner in two 3px steps,
+   the way console dialog boxes rounded corners out of square tiles. The
+   clip replaces the outer box-shadow frames (clip-path would cut them). */
+[data-theme='eightbit'] .panel {
+  border: 3px solid #f8f8f8 !important;
+  box-shadow: none !important;
+  clip-path: polygon(
+    0 9px,
+    3px 9px,
+    3px 3px,
+    9px 3px,
+    9px 0,
+    calc(100% - 9px) 0,
+    calc(100% - 9px) 3px,
+    calc(100% - 3px) 3px,
+    calc(100% - 3px) 9px,
+    100% 9px,
+    100% calc(100% - 9px),
+    calc(100% - 3px) calc(100% - 9px),
+    calc(100% - 3px) calc(100% - 3px),
+    calc(100% - 9px) calc(100% - 3px),
+    calc(100% - 9px) 100%,
+    9px 100%,
+    9px calc(100% - 3px),
+    3px calc(100% - 3px),
+    3px calc(100% - 9px),
+    0 calc(100% - 9px)
+  );
+}
+
+/* Menu-bar panel headers: solid color block, pixel font, white text */
+[data-theme='eightbit'] .panel > div:first-child {
+  background: #5f5fd3 !important;
+  color: #ffffff !important;
+  font-family: 'Press Start 2P', var(--font-mono) !important;
+  font-size: 8px !important;
+  letter-spacing: 0;
+  padding: 4px 8px !important;
+  margin: -10px -10px 8px -10px !important;
+  text-transform: uppercase;
+}
+
+/* Pixel font on buttons too, scaled relative to their layout size */
+[data-theme='eightbit'] button {
+  font-family: 'Press Start 2P', var(--font-mono) !important;
+  font-size: 0.8em;
+  text-transform: uppercase;
+}
+
+/* ── Matrix v2: the movie treatment ──────────────────────── */
+/* The digital-rain canvas itself is the MatrixRain component; these
+   rules make the chrome sit on top of it like HUD glass. */
+
+/* Panels become translucent glass so the rain reads through them */
+[data-theme='matrix'] .panel {
+  background: rgba(1, 8, 2, 0.82) !important;
+}
+
+/* Header flicker — a barely-there CRT shimmer on panel titles */
+@keyframes matrix-flicker {
+  0%,
+  93%,
+  100% {
+    opacity: 1;
+  }
+  94% {
+    opacity: 0.75;
+  }
+  96% {
+    opacity: 0.92;
+  }
+  98% {
+    opacity: 0.68;
+  }
+}
+[data-theme='matrix'] .panel > div:first-child {
+  animation: matrix-flicker 7s infinite;
+  text-shadow: 0 0 8px rgba(0, 255, 65, 0.6);
+}
+
+/* ── Trek: LCARS chrome ──────────────────────────────────── */
+
+/* LCARS display face on the chrome. Set on body (plus form controls
+   and the map, which don't inherit) rather than `* !important`, so
+   the data readouts that pin var(--font-mono) inline keep their
+   monospace column alignment — Antonio is proportional and turns
+   aligned spot tables ragged. */
+[data-theme='trek'] body,
+[data-theme='trek'] button,
+[data-theme='trek'] input,
+[data-theme='trek'] select,
+[data-theme='trek'] textarea,
+[data-theme='trek'] .leaflet-container {
+  font-family: 'Antonio', 'Arial Narrow', 'Helvetica Neue', sans-serif;
+}
+
+/* Panels: black wells framed by an LCARS side bar and rounded elbows */
+[data-theme='trek'] .panel {
+  background: #000 !important;
+  border: none !important;
+  border-left: 14px solid var(--lcars-bar, #ff9c00) !important;
+  border-radius: 22px 6px 6px 22px !important;
+  box-shadow: inset 0 0 0 1px rgba(255, 156, 0, 0.18) !important;
+  backdrop-filter: none !important;
+}
+
+/* Rotate bar colors so a wall of panels reads like an LCARS frame.
+   Keyed on the flexlayout tab containers: each .panel is the sole
+   element of its own tab, so striping panels against their own
+   siblings (.panel:nth-of-type) never matched — every bar sat orange. */
+[data-theme='trek'] .flexlayout__tab:nth-child(2n) .panel {
+  border-left-color: var(--lcars-alt, #9999cc) !important;
+}
+[data-theme='trek'] .flexlayout__tab:nth-child(3n) .panel {
+  border-left-color: #cc99cc !important;
+}
+
+/* Headers: the classic pill bar — black text on the section color.
+   Self-contained pill, no negative margins: panels override the base
+   10px padding with anything from 8px to 20px, so a -10px bleed lands
+   differently in every panel and clips into the elbow radius. */
+[data-theme='trek'] .panel > div:first-child {
+  background: var(--lcars-bar, #ff9c00) !important;
+  color: #000 !important;
+  border-radius: 999px !important;
+  padding: 2px 12px !important;
+  margin: 0 0 8px 0 !important;
+  text-transform: uppercase;
+  font-weight: 700 !important;
+  font-family: 'Antonio', 'Arial Narrow', 'Helvetica Neue', sans-serif !important;
+  letter-spacing: 0.6px;
+}
+[data-theme='trek'] .flexlayout__tab:nth-child(2n) .panel > div:first-child {
+  background: var(--lcars-alt, #9999cc) !important;
+}
+[data-theme='trek'] .flexlayout__tab:nth-child(3n) .panel > div:first-child {
+  background: #cc99cc !important;
+}
+
+/* Pill buttons, LCARS-style */
+[data-theme='trek'] button {
+  border-radius: 999px !important;
+  text-transform: uppercase;
+  letter-spacing: 0.4px;
+}
+
+/* Orange pill scrollbars on black tracks */
+[data-theme='trek'] ::-webkit-scrollbar-thumb {
+  background: #ff9c00 !important;
+  border-radius: 999px !important;
+}
+[data-theme='trek'] ::-webkit-scrollbar-track {
+  background: #000 !important;
+}
+
+/* ── Season themes: light chrome, the canvas carries the mood ── */
+
+/* Winter: frost creeping down from the top edge of every panel */
+[data-theme='winter'] .panel {
+  background: linear-gradient(180deg, rgba(200, 230, 255, 0.08), transparent 22%), var(--bg-panel) !important;
+  border-top-color: rgba(200, 230, 255, 0.45) !important;
+}
+[data-theme='winter'] ::-webkit-scrollbar-thumb {
+  background: rgba(160, 210, 255, 0.4) !important;
+}
+
+/* Map-tile tints: cold, fresh, sunny, golden */
+[data-theme='winter'] .leaflet-tile {
+  filter: saturate(0.75) brightness(1.05) hue-rotate(12deg);
+}
+[data-theme='spring'] .leaflet-tile {
+  filter: saturate(1.1) brightness(1.02);
+}
+[data-theme='summer'] .leaflet-tile {
+  filter: saturate(1.15) brightness(1.04) sepia(0.08);
+}
+[data-theme='fall'] .leaflet-tile {
+  filter: sepia(0.25) saturate(1.15) hue-rotate(-10deg);
+}
+
+/* ── Themed-header opt-out ───────────────────────────────── */
+/* Every styled theme above treats .panel > div:first-child as a title bar
+   (solid block, pixel/serif font, negative margins). Panels whose first
+   child is real content — the contest quick-log strip's callsign row, for
+   one — opt out with .no-theme-header so their inputs aren't repainted as
+   a header. Higher specificity + later position beats the theme rules. */
+[data-theme='retro'] .panel.no-theme-header > div:first-child,
+[data-theme='steampunk'] .panel.no-theme-header > div:first-child,
+[data-theme='eightbit'] .panel.no-theme-header > div:first-child,
+[data-theme='matrix'] .panel.no-theme-header > div:first-child,
+[data-theme='trek'] .panel.no-theme-header > div:first-child {
+  background: none !important;
+  color: inherit !important;
+  font-family: inherit !important;
+  font-size: inherit !important;
+  font-weight: inherit !important;
+  font-variant: normal;
+  letter-spacing: inherit;
+  padding: 0 !important;
+  margin: 0 !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  text-transform: none !important;
+  animation: none;
+  text-shadow: none;
+}

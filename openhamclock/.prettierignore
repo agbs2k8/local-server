@@ -1,0 +1,33 @@
+# Build output
+dist/
+build/
+out/
+
+# Dependencies
+node_modules/
+*/node_modules/
+
+# Generated / vendored
+public/vendor/
+public/index-monolithic.html
+
+# Binary / non-code
+*.png
+*.ico
+*.jpg
+*.svg
+*.woff
+*.woff2
+*.ttf
+
+# Config files that shouldn't be reformatted
+package-lock.json
+*.lock
+
+# Data files
+*.csv
+*.dat
+*.geojson
+
+# Test fixtures (captured external pages — must not be reformatted)
+**/__fixtures__/

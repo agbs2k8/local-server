@@ -1,0 +1,66 @@
+{
+  "port": 5555,
+  "bindAddress": "127.0.0.1",
+  "corsOrigins": "",
+  "logging": true,
+  "radio": {
+    "type": "none",
+    "serialPort": "",
+    "baudRate": 38400,
+    "dataBits": 8,
+    "stopBits": 2,
+    "parity": "none",
+    "dtr": true,
+    "rtscts": false,
+    "icomAddress": "0x94",
+    "pollInterval": 500,
+    "pttEnabled": false,
+    "rigctldHost": "127.0.0.1",
+    "rigctldPort": 4532,
+    "flrigHost": "127.0.0.1",
+    "flrigPort": 12345,
+    "fixSplit": false,
+    "modeOverrides": {}
+  },
+  "tci": {
+    "host": "localhost",
+    "port": 40001,
+    "trx": 0,
+    "vfo": 0
+  },
+  "smartsdr": {
+    "host": "192.168.1.100",
+    "port": 4992,
+    "sliceIndex": 0
+  },
+  "rtltcp": {
+    "host": "127.0.0.1",
+    "port": 1234,
+    "sampleRate": 2400000,
+    "gain": "auto"
+  },
+  "wsjtxRelay": {
+    "enabled": false,
+    "url": "https://openhamclock.com",
+    "key": "",
+    "session": "",
+    "udpPort": 2237,
+    "batchInterval": 2000,
+    "verbose": false,
+    "multicast": false,
+    "multicastGroup": "224.0.0.1",
+    "multicastInterface": "",
+    "udpBindAddress": ""
+  },
+  "winlinkExpressCsv": {
+    "enabled": false,
+    "csvPath": "",
+    "pollInterval": 30,
+    "ohcUrl": "http://localhost:8080",
+    "verbose": false
+  },
+  "tls": {
+    "enabled": false,
+    "certGenerated": false
+  }
+}

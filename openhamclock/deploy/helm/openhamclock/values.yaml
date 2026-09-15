@@ -1,0 +1,123 @@
+# Number of OpenHamClock replicas.
+#
+# Keep this at 1 because OpenHamClock uses a ReadWriteOnce PVC
+# for /data.
+replicaCount: 1
+
+
+# ---------------------------------------------------------------------------
+# Container image
+# ---------------------------------------------------------------------------
+
+image:
+  repository: openhamclock
+  tag: local
+
+  # The deploy script imports this image directly into K3s/containerd.
+  # Never attempt to pull it from a registry.
+  pullPolicy: Never
+
+
+# ---------------------------------------------------------------------------
+# Kubernetes Service
+# ---------------------------------------------------------------------------
+
+service:
+  type: NodePort
+
+  port: 3000
+  nodePort: 30081
+
+  wsjtx:
+    enabled: true
+    port: 2237
+    nodePort: 30237
+
+  n1mm:
+    enabled: true
+    port: 12060
+    nodePort: 32060
+# ---------------------------------------------------------------------------
+# Persistent data
+# ---------------------------------------------------------------------------
+
+persistence:
+  enabled: true
+
+  accessModes:
+    - ReadWriteOnce
+
+  size: 1Gi
+
+  # Leave empty to use the cluster's default StorageClass.
+  #
+  # K3s normally provides local-path storage, so this should usually
+  # be left blank unless you have configured another StorageClass.
+  storageClass: ""
+
+
+# ---------------------------------------------------------------------------
+# Environment
+# ---------------------------------------------------------------------------
+
+# The deploy.sh script creates this Secret from .env and sets this value.
+envSecret:
+  name: ""
+  checksum: ""
+
+
+# ---------------------------------------------------------------------------
+# Resources
+# ---------------------------------------------------------------------------
+
+resources:
+  requests:
+    cpu: 100m
+    memory: 256Mi
+
+  limits:
+    cpu: "2"
+    memory: 2Gi
+
+
+# ---------------------------------------------------------------------------
+# Health checks
+# ---------------------------------------------------------------------------
+
+probes:
+
+  liveness:
+    initialDelaySeconds: 10
+    periodSeconds: 30
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+  readiness:
+    initialDelaySeconds: 5
+    periodSeconds: 10
+    timeoutSeconds: 5
+    failureThreshold: 3
+
+
+# ---------------------------------------------------------------------------
+# Scheduling
+# ---------------------------------------------------------------------------
+
+nodeSelector: {}
+
+tolerations: []
+
+affinity: {}
+
+
+# ---------------------------------------------------------------------------
+# Pod/container security
+# ---------------------------------------------------------------------------
+
+podSecurityContext: {}
+
+securityContext:
+  allowPrivilegeEscalation: false
+  capabilities:
+    drop:
+      - ALL

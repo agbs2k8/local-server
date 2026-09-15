@@ -1,0 +1,91 @@
+# OpenHamClock Dockerfile
+# Multi-stage build for optimized production image
+
+# ============================================
+# Stage 1: Build Frontend
+# ============================================
+FROM node:22-alpine AS builder
+
+WORKDIR /app
+
+# Copy package files
+COPY package*.json ./
+
+# Install ALL dependencies (including devDependencies for Vite)
+RUN npm install
+
+# Copy source files
+COPY . .
+
+# Ensure public/ exists (may not be tracked in git)
+RUN mkdir -p /app/public
+
+# Download vendor assets for self-hosting (fonts, Leaflet — no external CDN at runtime).
+# node:22-alpine does NOT ship
+# bash — without this apk add, RUN bash ... fails with "bash: not found".
+RUN apk add --no-cache bash curl && bash scripts/vendor-download.sh || true
+
+# Fetch P.533 WASM from the wasm-latest GitHub Release (public, no auth).
+# On failure (e.g. release doesn't exist yet), runtime
+# falls back to /api/bands (proppy) then the built-in heuristic.
+RUN node scripts/fetch-wasm.js
+
+# Build the React app with Vite
+RUN npm run build
+
+# ============================================
+# Stage 2: Production
+# ============================================
+FROM node:22-alpine AS production
+
+# Set environment
+ENV NODE_ENV=production
+ENV PORT=3000
+ENV NODE_OPTIONS="--max-old-space-size=2048 --expose-gc"
+
+WORKDIR /app
+
+# Create /data directory for persistent stats (Railway volume mount point)
+RUN mkdir -p /data
+
+# Copy package files and install production deps only
+COPY package*.json ./
+RUN npm install --omit=dev
+
+# Copy server files.
+# --link is used throughout this stage so BuildKit builds each layer
+# independently of prior-layer state — avoids stuck-cache errors we've
+# hit on Railway when the BuildKit context ref goes stale across deploys
+# ("failed to calculate checksum of ref ... <path>: not found").
+COPY --link server.js ./
+COPY --link server/ ./server/
+COPY --link config.js ./
+COPY --link src/server ./src/server
+
+# Copy WSJT-X relay agent (served as download to users)
+COPY --link wsjtx-relay ./wsjtx-relay
+
+# Copy Rig Listener agent (served as download to users)
+COPY --link rig-listener ./rig-listener
+
+# Copy built frontend from builder stage
+COPY --from=builder /app/dist ./dist
+
+# Copy public folder from builder (for monolithic fallback reference)
+# Using builder stage because public/ may not be separately available in production context
+COPY --from=builder /app/public ./public
+
+# Create local data directory as fallback
+RUN mkdir -p /app/data
+
+# Expose ports (3000 = web, 2237 = WSJT-X UDP, 12060 = N1MM/DXLog)
+EXPOSE 3000
+EXPOSE 2237/udp
+EXPOSE 12060
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/api/health || exit 1
+
+# Start server with explicit heap limit and GC access for periodic compaction
+CMD ["node", "--max-old-space-size=2048", "--expose-gc", "server.js"]

@@ -1,0 +1,41 @@
+name: Close Issue
+
+on:
+  issue_comment:
+    types: [created]
+
+jobs:
+  close-issue:
+    if: github.repository == 'accius/openhamclock'
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+    steps:
+      - name: Check comment body
+        if: |
+          startsWith(github.event.comment.body, '/close') &&
+          github.event.issue.pull_request == null
+        uses: actions/github-script@v9
+        with:
+          script: |
+            const { actor } = context;
+            const issueNumber = context.issue.number;
+
+            // Close the issue
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issueNumber,
+              state: 'closed',
+              state_reason: 'completed'
+            });
+
+            // React with ✅ so they know it worked
+            await github.rest.reactions.createForIssueComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id,
+              content: 'rocket'
+            });
+
+            console.log(`${actor} closed issue #${issueNumber}`);

@@ -1,0 +1,11 @@
+apiVersion: v2
+
+name: openhamclock
+
+description: OpenHamClock deployment for Kubernetes / K3s
+
+type: application
+
+version: 0.1.0
+
+appVersion: "local"

@@ -1,0 +1,46 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "openhamclock.fullname" . }}
+  labels:
+    {{- include "openhamclock.labels" . | nindent 4 }}
+
+spec:
+  type: {{ .Values.service.type }}
+
+  selector:
+    {{- include "openhamclock.selectorLabels" . | nindent 4 }}
+
+  ports:
+
+    - name: http
+      port: {{ .Values.service.port }}
+      targetPort: http
+      protocol: TCP
+      {{- if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.nodePort }}
+      {{- end }}
+
+    {{- if .Values.service.wsjtx.enabled }}
+
+    - name: wsjtx
+      port: {{ .Values.service.wsjtx.port }}
+      targetPort: wsjtx
+      protocol: UDP
+      {{- if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.wsjtx.nodePort }}
+      {{- end }}
+
+    {{- end }}
+
+    {{- if .Values.service.n1mm.enabled }}
+
+    - name: n1mm
+      port: {{ .Values.service.n1mm.port }}
+      targetPort: n1mm
+      protocol: UDP
+      {{- if eq .Values.service.type "NodePort" }}
+      nodePort: {{ .Values.service.n1mm.nodePort }}
+      {{- end }}
+
+    {{- end }}

@@ -1,0 +1,166 @@
+# Docker Deployment Guide
+
+## Quick Start (Zero Config)
+
+Docker compose is the recommended way to deploy:
+
+```bash
+git clone https://github.com/accius/openhamclock.git
+cd openhamclock
+docker compose up -d
+```
+
+or you can also use traditional docker commands:
+
+```bash
+docker run -d -p 3000:3000 --name openhamclock ghcr.io/accius/openhamclock:latest
+```
+
+This will pull the latest container image and start the OpenHamClock container
+
+Open **<http://localhost:3000>** — that's it. OpenHamClock runs with sensible defaults.
+
+## Customize Your Station
+
+Copy the quick-start env file and edit it:
+
+```bash
+cp stack.env.example stack.env
+```
+
+Set your callsign, grid square, and timezone:
+
+```env
+CALLSIGN=K0CJH
+LOCATOR=FN20
+TZ=America/New_York
+```
+
+> **`TZ` is optional** — if omitted, each visitor's browser timezone is used for
+> the local-time display. Setting it is still recommended so that server-side
+> timestamps (logs, cache TTLs, etc.) match your local time.
+
+Restart to apply:
+
+```bash
+docker compose down && docker compose up -d
+```
+
+> **Tip:** `stack.env` contains only the essentials. For the full list of 50+ options (WSJT-X, N1MM, weather APIs, DX cluster, propagation, etc.), see `.env.example`.
+
+## Portainer / Stacks
+
+If deploying via Portainer:
+
+1. Paste the `docker-compose.yml` contents into a new Stack
+2. Use the **Environment** tab to add variables from `stack.env.example`
+3. Or upload `stack.env` in the **env file** section
+
+The compose file loads both `stack.env` and `.env` automatically (both optional).
+
+## Ports
+
+| Port  | Protocol | Service                     |
+| ----- | -------- | --------------------------- |
+| 3000  | TCP      | Web UI                      |
+| 2237  | UDP      | WSJT-X / JTDX               |
+| 12060 | UDP      | N1MM / DXLog contest logger |
+
+To change the web UI port on the host:
+
+```yaml
+ports:
+  - '8080:3000' # Access at http://localhost:8080
+```
+
+## Reverse Proxy
+
+If running behind nginx/Caddy/Traefik, you may want to override the health check endpoint:
+
+```env
+HEALTH_ENDPOINT=http://localhost:3000/api/health
+```
+
+## Data persistence
+
+To persist stats and settings across container rebuilds you can either use volumes or bind mounts
+
+[Volumes](https://docs.docker.com/engine/storage/volumes/):
+
+```yaml
+services:
+  openhamclock:
+    volumes:
+      - ohc-data:/data
+volumes:
+  ohc-data:
+```
+
+[Bind mounts](https://docs.docker.com/engine/storage/bind-mounts/):
+
+```yaml
+services:
+  openhamclock:
+    volumes:
+      - ./ohc-data:/data
+```
+
+## Updating
+
+Pull the latest image:
+
+```bash
+# If using compose
+docker compose pull
+
+# If using plain docker cli
+docker pull ghcr.io/accius/openhamclock:latest
+```
+
+or build from the main branch:
+
+```bash
+git pull
+docker compose build --no-cache
+```
+
+then restart container with latest image:
+
+```bash
+# If using compose
+docker compose up -d
+
+# If using plain docker cli
+docker rm -f openhamclock
+docker run -d -p 3000:3000 --name openhamclock ghcr.io/accius/openhamclock:latest
+```
+
+## Configuration Priority
+
+OpenHamClock reads configuration from multiple sources. Later sources override earlier ones:
+
+1. **Built-in defaults** (in `config.js` and `server.js`)
+2. **`stack.env`** file (loaded by docker-compose, optional)
+3. **`.env`** file (loaded by docker-compose, optional)
+4. **`environment:`** block in `docker-compose.yml`
+5. **UI settings** (saved in browser or via Settings Sync)
+
+## Environment Variable Reference
+
+See `.env.example` for the complete list with descriptions. Key sections:
+
+- **Station Info** — `CALLSIGN`, `LOCATOR`, `LATITUDE`, `LONGITUDE`
+- **Display** — `THEME`, `UNITS`, `TIME_FORMAT`, `LAYOUT`
+- **Features** — `SHOW_POTA`, `SHOW_SATELLITES`, `SHOW_DX_PATHS`
+- **DX Cluster** — `DX_CLUSTER_SOURCE`, `SPOT_RETENTION_MINUTES`
+- **WSJT-X** — `WSJTX_ENABLED`, `WSJTX_UDP_PORT`, `WSJTX_RELAY_KEY`
+- **N1MM** — `N1MM_UDP_ENABLED`, `N1MM_UDP_PORT`
+- **Weather** — `OPENWEATHER_API_KEY`, `VITE_AMBIENT_*`
+- **Advanced** — `ITURHFPROP_URL`, `HEALTH_ENDPOINT`, `CORS_ORIGINS`
+
+## Other Microservices
+
+You can also self-host other microservices, check their respective documentation for details:
+
+- [iturhfprop-service](../iturhfprop-service/README.md#docker)
+- [dxspider-proxy](../dxspider-proxy/README.md#docker)
