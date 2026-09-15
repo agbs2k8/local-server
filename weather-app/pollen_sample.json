@@ -1,0 +1,142 @@
+{
+    "regionCode": "US",
+    "dailyInfo": [
+        {
+            "date": {
+                "year": 2026,
+                "month": 9,
+                "day": 10
+            },
+            "pollenTypeInfo": [
+                {
+                    "code": "GRASS",
+                    "displayName": "Grass",
+                    "inSeason": true,
+                    "indexInfo": {
+                        "code": "UPI",
+                        "displayName": "Universal Pollen Index",
+                        "value": 0,
+                        "category": "None",
+                        "indexDescription": "Pollen levels are very low and are not likely to trigger allergic reactions",
+                        "color": {}
+                    },
+                    "healthRecommendations": [
+                        "Pollen levels are very low right now. It's a great day to enjoy the outdoors!"
+                    ]
+                },
+                {
+                    "code": "TREE",
+                    "displayName": "Tree"
+                },
+                {
+                    "code": "WEED",
+                    "displayName": "Weed",
+                    "inSeason": true,
+                    "indexInfo": {
+                        "code": "UPI",
+                        "displayName": "Universal Pollen Index",
+                        "value": 5,
+                        "category": "Very High",
+                        "indexDescription": "Most people with allergy to pollen are likely to experience symptoms. Very sensitive people will experience severe symptoms",
+                        "color": {
+                            "red": 1
+                        }
+                    },
+                    "healthRecommendations": [
+                        "Avoid mowing the lawn and raking leaves.",
+                        "When driving the car, close your windows and turn the air conditioning system to recirculation mode.",
+                        "Keep your windows closed and turn on your air purifier or air conditioning.",
+                        "Consider staying indoors during the peak pollen hours (morning and early afternoon).",
+                        "Make sure to use an air purifier with HEPA filter in your home, especially in your bedroom. Don't forget to perform regular filter maintenance checks."
+                    ]
+                }
+            ],
+            "plantInfo": [
+                {
+                    "code": "MAPLE",
+                    "displayName": "Maple"
+                },
+                {
+                    "code": "ELM",
+                    "displayName": "Elm"
+                },
+                {
+                    "code": "COTTONWOOD",
+                    "displayName": "Cottonwood"
+                },
+                {
+                    "code": "ALDER",
+                    "displayName": "Alder"
+                },
+                {
+                    "code": "BIRCH",
+                    "displayName": "Birch"
+                },
+                {
+                    "code": "ASH",
+                    "displayName": "Ash"
+                },
+                {
+                    "code": "PINE",
+                    "displayName": "Pine"
+                },
+                {
+                    "code": "OAK",
+                    "displayName": "Oak"
+                },
+                {
+                    "code": "JUNIPER",
+                    "displayName": "Juniper"
+                },
+                {
+                    "code": "GRAMINALES",
+                    "displayName": "Grasses",
+                    "inSeason": true,
+                    "indexInfo": {
+                        "code": "UPI",
+                        "displayName": "Universal Pollen Index",
+                        "value": 0,
+                        "category": "None",
+                        "indexDescription": "Pollen levels are very low and are not likely to trigger allergic reactions",
+                        "color": {}
+                    },
+                    "plantDescription": {
+                        "type": "GRASS",
+                        "family": "Poaceae",
+                        "season": "Late spring, summer",
+                        "specialColors": "None",
+                        "specialShapes": "The leaves are alternate, long and narrow and the leaf margin is smooth.",
+                        "crossReaction": "Plantain (Plantago) pollen. In addition, there may be a higher risk for food allergies like melons, oranges, tomatoes, peanuts, soy, potato, and other legumes.",
+                        "picture": "https://storage.googleapis.com/pollen-pictures/graminales_full.jpg",
+                        "pictureCloseup": "https://storage.googleapis.com/pollen-pictures/graminales_closeup.jpg"
+                    }
+                },
+                {
+                    "code": "RAGWEED",
+                    "displayName": "Ragweed",
+                    "inSeason": true,
+                    "indexInfo": {
+                        "code": "UPI",
+                        "displayName": "Universal Pollen Index",
+                        "value": 5,
+                        "category": "Very High",
+                        "indexDescription": "Most people with allergy to pollen are likely to experience symptoms. Very sensitive people will experience severe symptoms",
+                        "color": {
+                            "red": 1
+                        }
+                    },
+                    "plantDescription": {
+                        "type": "WEED",
+                        "family": "Asteraceae (the daisy family)",
+                        "season": "Late summer, fall",
+                        "specialColors": "None",
+                        "specialShapes": "The leaves are alternate or opposite, divided and lobed. The leaf margin is smooth or serrated.",
+                        "crossReaction": "Mugwort and Goldenrod as well as daisies such as Sunflower, Dandelion, and Chamomile.",
+                        "picture": "https://storage.googleapis.com/pollen-pictures/ragweed_full.jpg",
+                        "pictureCloseup": "https://storage.googleapis.com/pollen-pictures/ragweed_closeup.jpg"
+                    }
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,48 @@
+{
+    "weather": {
+        "high_temp": 25,
+        "low_temp": 15,
+        "avg_wind": 6,
+        "avg_pressure": 1016.17,
+        "pressure_change": "INCR",
+        "hours": [
+            {
+                "pressure": 1016.17,
+                "humidity": 36,
+                "wind_speed": 6,
+                "temperature": 24.9
+            }
+        ]
+    },
+    "airQuality": {
+        "high": 76,
+        "low": 58,
+        "avg": 67,
+        "poullutants":{
+            "co": 0,
+            "no2": 0,
+            "o3": 2, 
+            "pm10": 1,
+            "pm25": 0,
+            "so2": 0
+        }
+    },
+    "pollen": {
+        "grass": {
+            "value": 0,
+            "category": "None",
+            "description": "Pollen levels are very low and are not likely to trigger allergic reactions"
+        },
+        "tree": {
+            "value": 0,
+            "category": null,
+            "description": null
+        },
+        "weed": {
+            "value": 5,
+            "category": "Very High",
+            "description": "Most people with allergy to pollen are likely to experience symptoms. Very sensitive people will experience severe symptoms"
+        }
+
+    }
+}

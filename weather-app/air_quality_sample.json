@@ -1,0 +1,239 @@
+{
+    "hourlyForecasts": [
+        {
+            "dateTime": "2026-09-11T07:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 76,
+                    "aqiDisplay": "76",
+                    "color": {
+                        "red": 0.4117647,
+                        "green": 0.77254903,
+                        "blue": 0.20392157
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T08:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 76,
+                    "aqiDisplay": "76",
+                    "color": {
+                        "red": 0.4117647,
+                        "green": 0.77254903,
+                        "blue": 0.20392157
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T09:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 76,
+                    "aqiDisplay": "76",
+                    "color": {
+                        "red": 0.4117647,
+                        "green": 0.77254903,
+                        "blue": 0.20392157
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T10:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 75,
+                    "aqiDisplay": "75",
+                    "color": {
+                        "red": 0.43137255,
+                        "green": 0.7764706,
+                        "blue": 0.20392157
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T11:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 74,
+                    "aqiDisplay": "74",
+                    "color": {
+                        "red": 0.44705883,
+                        "green": 0.78431374,
+                        "blue": 0.2
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T12:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 73,
+                    "aqiDisplay": "73",
+                    "color": {
+                        "red": 0.4627451,
+                        "green": 0.7921569,
+                        "blue": 0.2
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T13:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 72,
+                    "aqiDisplay": "72",
+                    "color": {
+                        "red": 0.48235294,
+                        "green": 0.79607844,
+                        "blue": 0.2
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T14:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 71,
+                    "aqiDisplay": "71",
+                    "color": {
+                        "red": 0.49803922,
+                        "green": 0.8039216,
+                        "blue": 0.2
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T15:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 69,
+                    "aqiDisplay": "69",
+                    "color": {
+                        "red": 0.5411765,
+                        "green": 0.81960785,
+                        "blue": 0.1882353
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T16:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 66,
+                    "aqiDisplay": "66",
+                    "color": {
+                        "red": 0.6117647,
+                        "green": 0.84705883,
+                        "blue": 0.15686275
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T17:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 63,
+                    "aqiDisplay": "63",
+                    "color": {
+                        "red": 0.6862745,
+                        "green": 0.8745098,
+                        "blue": 0.12941177
+                    },
+                    "category": "Good air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T18:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 59,
+                    "aqiDisplay": "59",
+                    "color": {
+                        "red": 0.78039217,
+                        "green": 0.9137255,
+                        "blue": 0.08627451
+                    },
+                    "category": "Moderate air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        },
+        {
+            "dateTime": "2026-09-11T19:00:00Z",
+            "indexes": [
+                {
+                    "code": "uaqi",
+                    "displayName": "Universal AQI",
+                    "aqi": 58,
+                    "aqiDisplay": "58",
+                    "color": {
+                        "red": 0.8039216,
+                        "green": 0.92156863,
+                        "blue": 0.078431375
+                    },
+                    "category": "Moderate air quality",
+                    "dominantPollutant": "o3"
+                }
+            ]
+        }
+    ],
+    "regionCode": "us"
+}
